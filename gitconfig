@@ -7,11 +7,11 @@
   ci = commit
   st = status
   br = branch
-    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-    undo = checkout 
-    unstage = reset HEAD 
   type = cat-file -t
   dump = cat-file -p
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  undo = checkout 
+  unstage = reset HEAD 
 
 [core]
   autocrlf = input
