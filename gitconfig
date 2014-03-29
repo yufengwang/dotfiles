@@ -1,0 +1,21 @@
+[user]
+  name = Yufeng Wang
+  email = yufeng05w@gmail.com
+
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    undo = checkout 
+    unstage = reset HEAD 
+  type = cat-file -t
+  dump = cat-file -p
+
+[core]
+  autocrlf = input
+  safecrlf = true
+  editor = vim
+[push]
+  default = simple
