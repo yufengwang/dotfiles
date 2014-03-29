@@ -11,7 +11,7 @@ for item in ./*; do
   # grab only the filename
   file="`echo ${item:2}`"
 
-  if [ "$file" == "link.sh" ] || [ "$file" == "readme.md" ]; then
+  if [ "$file" == "link.sh" ] || [ "$file" == "README.md" ]; then
     # skip script and readme
     echo "$file: skipping"
     continue
