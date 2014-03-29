@@ -34,7 +34,7 @@ autocmd BufNewFile,BufRead *.py set tabstop=4 shiftwidth=4 softtabstop=4
 
 " kick vim into 256 colors
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-    set t_Co=256
+  set t_Co=256
 endif
 
 " vim-airline config
@@ -42,7 +42,7 @@ set laststatus=2        " enable airline all the time
 let g:airline#extensions#tabline#enabled = 1
 
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
 
 " unicode symbols
