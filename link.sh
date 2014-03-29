@@ -40,4 +40,9 @@ for item in ./*; do
   fi
 done
 
+# setup submodules for vim bundles
+echo "setting up submodules"
+git submodule init
+git submodule update
+
 echo "Done"
