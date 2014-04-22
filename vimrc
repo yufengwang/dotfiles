@@ -29,7 +29,6 @@ set smartcase           " case sensitive when uppercase present
 
 " tab settings
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab autoindent
-autocmd BufNewFile,BufRead *.cpp set tabstop=4 shiftwidth=4 softtabstop=4
 autocmd BufNewFile,BufRead *.py set tabstop=4 shiftwidth=4 softtabstop=4
 
 " kick vim into 256 colors
