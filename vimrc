@@ -31,6 +31,9 @@ set smartcase           " case sensitive when uppercase present
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab autoindent
 autocmd BufNewFile,BufRead *.py set tabstop=4 shiftwidth=4 softtabstop=4
 
+" enable native syntax highlight for markdown with .md extension
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
 " kick vim into 256 colors
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
   set t_Co=256
