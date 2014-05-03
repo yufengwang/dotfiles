@@ -98,7 +98,6 @@ nmap <leader>q :quit<CR>
 nmap <C-a> ggvG$
 
 " plugin mappings
-nmap <F2> :CtrlPMixed<CR>
 nmap <F3> :NERDTreeToggle<CR>
 nmap <F4> :TagbarToggle<CR>
 
