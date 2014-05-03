@@ -68,10 +68,10 @@ let mapleader = '\'
 nmap <leader>c :nohlsearch<CR>
 
 " window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " tab settings
 nmap <leader>e :tabprevious<CR>
