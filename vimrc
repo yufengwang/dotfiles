@@ -29,7 +29,7 @@ set smartcase           " case sensitive when uppercase present
 
 " tab settings
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab autoindent
-autocmd BufNewFile,BufRead *.py set tabstop=4 shiftwidth=4 softtabstop=4
+autocmd filetype python set tabstop=4 shiftwidth=4 softtabstop=4
 
 " enable native syntax highlight for markdown with .md extension
 autocmd BufNewFile,BufRead *.md set filetype=markdown
@@ -68,10 +68,10 @@ let mapleader = '\'
 nmap <leader>c :nohlsearch<CR>
 
 " window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <S-h> <C-w>h
+nnoremap <S-j> <C-w>j
+nnoremap <S-k> <C-w>k
+nnoremap <S-l> <C-w>l
 
 " tab settings
 nmap <leader>e :tabprevious<CR>
@@ -88,6 +88,7 @@ nmap <C-e> :edit <C-r>=expand("%:p:h")<CR>/
 " key mappings
 nnoremap j gj
 nnoremap k gk
+nnoremap <C-a> ggvG$
 nmap <F5> :edit<CR>
 nmap <F8> :set mouse=a<CR>
 nmap <F9> :set mouse=""<CR>
@@ -95,7 +96,6 @@ nmap <F12> :set spell!<CR>
 nmap <leader>p :set paste!<CR>
 nmap <leader>w :write<CR>
 nmap <leader>q :quit<CR>
-nmap <C-a> ggvG$
 
 " plugin mappings
 nmap <F3> :NERDTreeToggle<CR>
