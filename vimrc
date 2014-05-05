@@ -19,7 +19,6 @@ set scrolloff=5         " keep lines above and below cursor
 set autoread            " refresh when file is changed outside
 set spelllang=en_us     " set spelling language to English
 set background=dark
-"colorscheme molokai
 
 " searching
 set hlsearch            " highlight search terms
@@ -40,7 +39,7 @@ if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gno
 endif
 
 " vim-airline config
-set laststatus=2        " enable airline all the time
+set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 
 if !exists('g:airline_symbols')
@@ -54,10 +53,6 @@ let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
-
-" latex support
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
 
 " Syntastic
 let g:syntastic_java_javac_classpath = '/home/yufeng/androidSDK/platforms/android-19/android.jar'
