@@ -1,12 +1,13 @@
 #!/bin/bash
-# Script to symlink files to home dir
+# Script to symlink files to home directory
 
 HOME="`echo ~`"
-echo "Home: $HOME"
-echo ""
 
 # start in dotfiles source directory
 cd $HOME/.dotfiles/src/
+
+echo "Linking dotfiles to $HOME"
+echo ""
 
 for match in ./*; do
   # grab only the filename
@@ -34,6 +35,7 @@ for match in ./*; do
     echo ".$file: symlinking"
     ln -s $HOME/.dotfiles/src/$file $HOME/.$file
   fi
+
   echo ""
 done
 
@@ -46,5 +48,3 @@ git submodule init
 git submodule update
 
 echo "Done"
-echo ""
-
