@@ -11,11 +11,15 @@
   dump = cat-file -p
   hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
   undo = checkout 
-  unstage = reset HEAD 
+  unstage = reset HEAD --
 
 [core]
   autocrlf = input
   safecrlf = true
   editor = vim
+
 [push]
   default = simple
+
+[color]
+	ui = true

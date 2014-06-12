@@ -54,9 +54,7 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 
-" Syntastic
-let g:syntastic_java_javac_classpath = '/home/yufeng/androidSDK/platforms/android-19/android.jar'
-
+" key mappings
 let mapleader = '\'
 
 " clear search highlights
