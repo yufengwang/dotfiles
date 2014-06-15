@@ -12,6 +12,7 @@
   hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
   undo = checkout 
   unstage = reset HEAD --
+  gr = grep --break --heading --line-number
 
 [core]
   autocrlf = input
@@ -23,3 +24,7 @@
 
 [color]
 	ui = true
+
+[grep]
+  extendRegexp = true
+  lineNumber = true

@@ -7,6 +7,6 @@ curl -Lo ~/.dotfiles/src/vim/autoload/pathogen.vim \
 
 echo "Updating submodules"
 cd ~/.dotfiles/
-git submodule update
+git submodule update --init
 
 echo "Done"

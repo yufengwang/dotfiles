@@ -27,7 +27,8 @@ set ignorecase          " case insensitive search
 set smartcase           " case sensitive when uppercase present
 
 " tab settings
-set tabstop=2 shiftwidth=2 softtabstop=2 expandtab autoindent
+set autoindent expandtab
+set tabstop=2 shiftwidth=2 softtabstop=2
 autocmd filetype c,cpp,python set tabstop=4 shiftwidth=4 softtabstop=4
 
 " enable native syntax highlight for markdown with .md extension
@@ -50,7 +51,7 @@ endif
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
 let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 
