@@ -10,7 +10,7 @@
 Clone dotfiles and run linking script:
 
 ```bash
-$ git clone https://github.com/yufeng05/dotfiles.git ~/.dotfiles
+$ git clone https://github.com/yufengwang/dotfiles.git ~/.dotfiles
 $ ~/.dotfiles/link.sh
 ```
 
@@ -30,7 +30,7 @@ $ rm -rf ~/.dotfiles
 
 ## Updating Vim Plugins
 
-Vim plugins are managed by `pathogen`. Vim plugins are managed as git submodules.
+Vim plugins are managed by `pathogen`. Vim plugins are added as git submodules.
 To update, simply run the update script:
 
 ```bash
