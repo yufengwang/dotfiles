@@ -20,7 +20,7 @@
   editor = vim
 
 [push]
-  default = simple
+  default = tracking
 
 [color]
 	ui = true
