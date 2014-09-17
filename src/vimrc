@@ -76,13 +76,13 @@ nmap <leader>t :tabedit <C-r>=expand("%:p:h")<CR>/
 nmap <leader>b :buffers<CR>
 nmap <C-b> :bprevious<CR>
 nmap <C-n> :bnext<CR>
-nmap <C-d> :NERDTreeClose<CR>:bdelete<CR>
+nmap <C-d> :NERDTreeClose<CR>:TagbarClose<CR>:bdelete<CR>
 nmap <C-e> :edit <C-r>=expand("%:p:h")<CR>/
 
 " key mappings
 nnoremap j gj
 nnoremap k gk
-nnoremap <C-a> ggvG$
+nnoremap <leader>a ggvG$
 nmap <F5> :edit<CR>
 nmap <F8> :set mouse=a<CR>
 nmap <F9> :set mouse=""<CR>
