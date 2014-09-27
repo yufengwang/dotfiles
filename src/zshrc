@@ -1,0 +1,22 @@
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+
+bindkey -v
+EDITOR=$(which vim)
+TERM=xterm-256color
+PATH=$PATH:$(ruby -rubygems -e "puts Gem.user_dir")/bin
+
+setopt appendhistory autocd extendedglob completealiases
+setopt HIST_IGNORE_DUPS INTERACTIVE_COMMENTS
+
+autoload -Uz compinit promptinit
+compinit
+promptinit
+prompt adam1
+
+zstyle :compinstall filename '${HOME}/.zshrc'
+zstyle ':completion:*' menu select
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
