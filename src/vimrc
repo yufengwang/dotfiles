@@ -29,7 +29,7 @@ set smartcase           " case sensitive when uppercase present
 " tab settings
 set autoindent expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
-autocmd filetype c,cpp,python set tabstop=4 shiftwidth=4 softtabstop=4
+autocmd filetype c,cpp,python,perl set tabstop=4 shiftwidth=4 softtabstop=4
 
 " enable native syntax highlight for markdown with .md extension
 autocmd BufNewFile,BufRead *.md set filetype=markdown
