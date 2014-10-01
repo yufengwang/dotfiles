@@ -13,10 +13,11 @@ setopt HIST_IGNORE_DUPS INTERACTIVE_COMMENTS
 autoload -Uz compinit promptinit
 compinit
 promptinit
-prompt adam1
 
 zstyle :compinstall filename '${HOME}/.zshrc'
 zstyle ':completion:*' menu select
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+
+PROMPT='%B|%n@%m:%2~|%#%b '
