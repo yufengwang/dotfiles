@@ -47,4 +47,8 @@ echo "setting up submodules"
 git submodule init
 git submodule update
 
+echo "setting up vim plugins"
+vim +PluginInstall +qall
+
+echo ""
 echo "Done"
