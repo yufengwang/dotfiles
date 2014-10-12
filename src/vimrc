@@ -3,10 +3,6 @@
 " make vim more useful!
 set nocompatible
 
-" use pathogen as plugin manager
-execute pathogen#infect()
-execute pathogen#helptags()
-
 syntax on
 filetype plugin indent on
 
