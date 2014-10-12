@@ -3,8 +3,23 @@
 " make vim more useful!
 set nocompatible
 
-syntax on
+" Vundle plugin manager
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
+Plugin 'ap/vim-css-color'
+call vundle#end()
+
 filetype plugin indent on
+syntax on
 
 " vim behavior
 set title               " change terminal title
