@@ -7,6 +7,7 @@
 ├── install
 ├── README.md
 ├── src
+│   ├── gemrc
 │   ├── gitconfig
 │   ├── tmux.conf
 │   ├── vim
@@ -58,4 +59,3 @@ To update, simply run the update script:
 ``` bash
 $ ~/.dotfiles/update
 ```
-
