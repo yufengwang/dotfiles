@@ -1,11 +1,15 @@
-HISTFILE=~/.histfile
+HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-bindkey -v
 EDITOR=$(which vim)
 TERM=xterm-256color
 PATH=$PATH:$HOME/.rvm/bin
+
+bindkey -v
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
 
 setopt appendhistory autocd extendedglob completealiases
 setopt HIST_IGNORE_DUPS INTERACTIVE_COMMENTS
