@@ -9,8 +9,8 @@
   br = branch
   type = cat-file -t
   dump = cat-file -p
-  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-  undo = checkout 
+  hist = log --pretty=format:'%h %ad |%d %s [%an]' --graph --date=short
+  undo = checkout
   unstage = reset HEAD --
   gr = grep --break --heading --line-number
 
