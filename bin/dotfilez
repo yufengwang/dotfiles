@@ -106,9 +106,9 @@ case "${1}" in
     echo ""
     link_dotfiles
     echo ""
-    install_vim_plugins
-    echo ""
     link_manager
+    echo ""
+    install_vim_plugins
     ;;
   uninstall)
     unlink_dotfiles
