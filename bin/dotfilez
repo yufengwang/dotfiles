@@ -20,7 +20,7 @@ print_help() {
 
 link_manager() {
   echo "Symlinking dotfiles manager... "
-  sudo ln -s ${DOTFILES_BIN}/${NAME} /usr/bin/${NAME}
+  sudo ln -sf ${DOTFILES_BIN}/${NAME} /usr/bin/${NAME}
   echo "done"
 }
 
