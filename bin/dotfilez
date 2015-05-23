@@ -73,44 +73,51 @@ unlink_dotfiles() {
 setup_submodules() {
   cd ${DOTFILES_ROOT}
 
-  printf "Setting up submodules... "
+  echo "Setting up submodules... "
   git submodule init
   git submodule update
-  printf "done\n"
+  echo "done"
 }
 
 update_submodules() {
   cd ${DOTFILES_ROOT}
 
-  printf "Updating submodules... "
+  echo "Updating submodules... "
   git submodule update --init
-  printf "done\n"
+  echo "done"
 }
 
 install_vim_plugins() {
-  printf "Installing vim plugins... "
+  echo "Installing vim plugins... "
   vim +PluginInstall +qall
-  printf "done\n"
+  echo "done"
 }
 
 update_vim_plugins() {
-  printf "Updating vim plugins... "
+  echo "Updating vim plugins... "
   vim +PluginInstall! +qall
-  printf "done\n"
+  echo "done"
 }
 
 # execute the manager
 case "${1}" in
   install)
+    setup_submodules
+    echo ""
     link_dotfiles
+    echo ""
+    install_vim_plugins
+    echo ""
     link_manager
     ;;
   uninstall)
     unlink_dotfiles
+    echo ""
     unlink_manager
     ;;
   update)
     update_submodules
+    echo ""
     update_vim_plugins
     ;;
   help)
