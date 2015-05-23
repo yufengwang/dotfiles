@@ -5,3 +5,7 @@
 # ignore all bundles except vundle
 src/vim/bundle/
 !src/vim/bundle/Vundle.vim
+
+#ignore all tmux plugins except tpm
+src/tmux/plugins/
+!src/tmux/plugins/tpm
