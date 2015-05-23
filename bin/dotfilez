@@ -1,0 +1,127 @@
+#!/bin/bash
+#
+# A simple dotfiles manager.
+
+NAME="dotfilez"
+HOME="$(echo ~)"
+DOTFILES_ROOT="${HOME}/.dotfiles"
+DOTFILES_BIN="${DOTFILES_ROOT}/bin"
+DOTFILES_SRC="${DOTFILES_ROOT}/src"
+
+print_help() {
+  echo "Usage: ${NAME} <command>"
+  echo ""
+  echo "Commands:"
+  echo "    install    -  symlink dotfiles, install plugins, and symlink this manager"
+  echo "    uninstall  -  unlink dotfiles and unlink this manager"
+  echo "    update     -  update submodules and plugins"
+  echo "    help       -  display this help"
+}
+
+link_manager() {
+  echo "Symlinking dotfiles manager... "
+  sudo ln -s ${DOTFILES_BIN}/${NAME} /usr/bin/${NAME}
+  echo "done"
+}
+
+unlink_manager() {
+  echo "Unlinking dotfiles manager... "
+  sudo rm -f /usr/bin/${NAME}
+  echo "done"
+}
+
+link_dotfiles() {
+  cd ${DOTFILES_SRC}
+
+  echo "Symlinking dotfiles to ${HOME}... "
+  for match in ./*; do
+    # grab only the filename
+    local file="$(echo ${match:2})"
+
+    if [[ -e "${HOME}/.${file}" ]] && [[ ! -L "${HOME}/.${file}" ]]; then
+      echo "  .${file}: already exists, backing up to .${file}.old"
+      mv ${HOME}/.${file} ${HOME}/.${file}.old
+      ln -s ${DOTFILES_SRC}/${file} ${HOME}/.${file}
+    elif [[ -e "${HOME}/.${file}" ]] && [[ -L "${HOME}/.${file}" ]]; then
+      echo "  .${file}: symlink already exists, replacing"
+      rm -rf ${HOME}/.${file}
+      ln -s ${DOTFILES_SRC}/${file} ${HOME}/.${file}
+    else
+      echo "  .${file}: does not exist, symlinking"
+      ln -s ${DOTFILES_SRC}/${file} ${HOME}/.${file}
+    fi
+  done
+  echo "done"
+}
+
+unlink_dotfiles() {
+  cd ${DOTFILES_SRC}
+
+  echo "Unlinking dotfiles from ${HOME}... "
+  for match in ./*; do
+    # grab only the filename
+    local file="$(echo ${match:2})"
+
+    if [[ -e "${HOME}/.${file}" ]] && [[ -L "${HOME}/.${file}" ]]; then
+      echo "  .${file}: unlinking"
+      rm -rf ${HOME}/.${file}
+    fi
+  done
+  echo "done"
+}
+
+setup_submodules() {
+  cd ${DOTFILES_ROOT}
+
+  printf "Setting up submodules... "
+  git submodule init
+  git submodule update
+  printf "done\n"
+}
+
+update_submodules() {
+  cd ${DOTFILES_ROOT}
+
+  printf "Updating submodules... "
+  git submodule update --init
+  printf "done\n"
+}
+
+install_vim_plugins() {
+  printf "Installing vim plugins... "
+  vim +PluginInstall +qall
+  printf "done\n"
+}
+
+update_vim_plugins() {
+  printf "Updating vim plugins... "
+  vim +PluginInstall! +qall
+  printf "done\n"
+}
+
+# execute the manager
+case "${1}" in
+  install)
+    link_dotfiles
+    link_manager
+    ;;
+  uninstall)
+    unlink_dotfiles
+    unlink_manager
+    ;;
+  update)
+    update_submodules
+    update_vim_plugins
+    ;;
+  help)
+    print_help
+    ;;
+  '')
+    echo "Usage: ${NAME} <command>"
+    exit 1
+    ;;
+  *)
+    echo "Unrecognized command. Try: ${NAME} help"
+    exit 1
+esac
+exit 0
