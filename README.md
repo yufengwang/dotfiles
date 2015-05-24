@@ -1,43 +1,41 @@
-# My simple dotfiles
-
-## What's Inside
-
-```
-.dotfiles
-├── install
-├── README.md
-├── src
-│   ├── gemrc
-│   ├── gitconfig
-│   ├── tmux.conf
-│   ├── vim
-│   │   └── bundle
-│   │       └── Vundle.vim
-│   ├── vimrc
-│   └── zshrc
-├── uninstall
-└── update
-```
+# ~/.dotfiles
 
 ## Requirements
 
-- exuberant ctags (for Tagbar vim plugin)
+You will need `curl`, `git`, and `bash` on your system to get up and running.
+And of course you should have installed the things these dotfiles relate to.
 
-## Installation
+## dotfilez
 
-Clone dotfiles and run linking script:
+This is a simple script that gets symlinked into `/usr/bin` so you can update
+your dotfiles and plugins anywhere.
 
-``` bash
-$ git clone https://github.com/yufengwang/dotfiles.git ~/.dotfiles
-$ ~/.dotfiles/install
+## Install
+
+Just run this:
+
+```bash
+$ curl -sL https://raw.github.com/yufengwng/dotfiles/master/install.sh | bash
 ```
 
-## Uninstallation
-
-Just run the unlinking script:
+Or if you prefer the more manual way:
 
 ``` bash
-$ ~/.dotfiles/uninstall
+$ git clone https://github.com/yufengwng/dotfiles.git ~/.dotfiles
+$ ~/.dotfiles/install.sh
+```
+
+A bit of manual work before you're ready to go:
+
+1. fire up `tmux` and hit `prefix + I` to [install tmux plugins][tpm]
+2. install `ctags` for `Tagbar` vim plugin via your distro's package manager
+
+## Uninstall
+
+Just run the `dotfilez` manager:
+
+``` bash
+$ dotfilez uninstall
 ```
 
 Remove the dotfiles directory if you're ready to lose configurations:
@@ -46,16 +44,22 @@ Remove the dotfiles directory if you're ready to lose configurations:
 $ rm -rf ~/.dotfiles
 ```
 
-## Updating Vim Plugins
+## Update
 
 Vim plugins are managed by `Vundle`. The Vundle bundle is being managed
 as a git submodule. Vim plugins will be installed by Vundle into
-`~/.dotfiles/src/vim/bundle`, but ignored by git. This lets Vundle handle
-and update the vim plugins without having to worry about version control
-and submoduling the plugins.
+`~/.dotfiles/src/vim/bundle`, but ignored by git.
 
-To update, simply run the update script:
+The same case is for tmux plugins. The TPM is being managed as a git
+submodule, and plugins are installed into `~/.dotfiles/src/tmux/plugins`.
+
+To update, simply invoke the `dotfilez` manager:
 
 ``` bash
-$ ~/.dotfiles/update
+$ dotfilez update
 ```
+
+As for tmux plugins, you will need to manually fire up `tmux` and
+hit `prefix + U`.
+
+[tpm]:https://github.com/tmux-plugins/tpm
