@@ -16,6 +16,8 @@ Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-fugitive'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ap/vim-css-color'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'ervandew/supertab'
 call vundle#end()
 
 filetype plugin indent on
