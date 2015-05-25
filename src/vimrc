@@ -72,7 +72,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 let mapleader = '\'
 
 " clear search highlights
-nmap <leader>c :nohlsearch<CR>
+nmap <leader>ch :nohlsearch<CR>
 
 " window navigation
 nnoremap <S-h> <C-w>h
