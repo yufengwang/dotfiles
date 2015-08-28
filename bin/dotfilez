@@ -10,6 +10,7 @@ DOTFILES_BIN="${DOTFILES_ROOT}/bin"
 DOTFILES_SRC="${DOTFILES_ROOT}/src"
 
 print_help() {
+  echo "${NAME} - A simple CLI for dotfile management"
   echo "Usage: ${NAME} <command>"
   echo ""
   echo "Commands:"
@@ -133,7 +134,10 @@ main() {
       print_help
       ;;
     '')
+      echo "${NAME} - A simple CLI for dotfile management"
       echo "Usage: ${NAME} <command>"
+      echo ""
+      echo "Try '${NAME} help' for more info"
       exit 1
       ;;
     *)
