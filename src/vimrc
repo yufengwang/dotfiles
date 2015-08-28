@@ -18,6 +18,9 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'ap/vim-css-color'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ervandew/supertab'
+Plugin 'gabrielelana/vim-markdown'
+Plugin 'rust-lang/rust.vim'
+Plugin 'cespare/vim-toml'
 call vundle#end()
 
 filetype plugin indent on
