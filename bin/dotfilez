@@ -7,7 +7,7 @@ HOME="$(echo ~)"
 USR_BIN="/usr/bin"
 DOTFILES_ROOT="${HOME}/.dotfiles"
 DOTFILES_BIN="${DOTFILES_ROOT}/bin"
-DOTFILES_SRC="${DOTFILES_ROOT}/src"
+DOTFILES_SRC="${DOTFILES_ROOT}/config"
 
 print_help() {
   echo "${NAME} - A simple CLI for dotfile management"

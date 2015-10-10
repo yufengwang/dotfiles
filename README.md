@@ -48,10 +48,10 @@ $ rm -rf ~/.dotfiles
 
 Vim plugins are managed by `Vundle`. The Vundle bundle is being managed
 as a git submodule. Vim plugins will be installed by Vundle into
-`~/.dotfiles/src/vim/bundle`, but ignored by git.
+`~/.dotfiles/config/vim/bundle`, but ignored by git.
 
 The same case is for tmux plugins. The TPM is being managed as a git
-submodule, and plugins are installed into `~/.dotfiles/src/tmux/plugins`.
+submodule, and plugins are installed into `~/.dotfiles/config/tmux/plugins`.
 
 To update, simply invoke the `dotfilez` manager:
 
