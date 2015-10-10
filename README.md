@@ -15,7 +15,7 @@ your dotfiles and plugins anywhere.
 Just run this:
 
 ```bash
-$ curl -sL https://raw.github.com/yufengwng/dotfiles/master/install.sh | bash
+$ curl -sL https://raw.github.com/yufengwng/dotfiles/master/install.sh | sh
 ```
 
 Or if you prefer the more manual way:
