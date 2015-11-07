@@ -23,6 +23,7 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'tpope/vim-surround'
+Plugin 'vim-ruby/vim-ruby'
 call vundle#end()
 
 filetype plugin indent on
@@ -52,8 +53,13 @@ autocmd filetype c,cpp,python,perl set tabstop=4 shiftwidth=4 softtabstop=4
 " enable native syntax highlight for markdown with .md extension
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 
+" enable ruby autocompletion features
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
 " kick vim into 256 colors
-if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+if $TERM == 'xterm-256color' || $TERM == 'screen-256color' || $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
 
@@ -72,6 +78,9 @@ let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
+
+" supertab config
+let g:SuperTabDefaultCompletionType = 'context'
 
 " key mapping leader
 let mapleader = '\'
