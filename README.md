@@ -7,8 +7,8 @@ And of course you should have installed the things these dotfiles relate to.
 
 ## dotfilez
 
-This is a simple script that gets symlinked into `/usr/bin` so you can update
-your dotfiles and plugins anywhere.
+This is a simple script that you can use to update your dotfiles and plugins
+anywhere.
 
 ## Install
 
@@ -62,4 +62,4 @@ $ dotfilez update
 As for tmux plugins, you will need to manually fire up `tmux` and
 hit `prefix + U`.
 
-[tpm]:https://github.com/tmux-plugins/tpm
+[tpm]: https://github.com/tmux-plugins/tpm
