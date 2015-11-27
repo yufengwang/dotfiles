@@ -24,6 +24,7 @@ alias grep='grep --color=auto'
 PROMPT='%B|%n@%m:%2~|%#%b '
 
 # export environment variables
+export PATH=$HOME/.dotfiles/bin:$PATH
 export EDITOR=$(which vim)
 export TERM=xterm-256color
 

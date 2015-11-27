@@ -4,7 +4,6 @@
 
 NAME="dotfilez"
 HOME="$(echo ~)"
-USR_BIN="/usr/bin"
 DOTFILES_ROOT="${HOME}/.dotfiles"
 DOTFILES_BIN="${DOTFILES_ROOT}/bin"
 DOTFILES_SRC="${DOTFILES_ROOT}/config"
@@ -14,22 +13,10 @@ print_help() {
   echo "Usage: ${NAME} <command>"
   echo ""
   echo "Commands:"
-  echo "    install    -  symlink dotfiles, symlink this manager, and install plugins"
-  echo "    uninstall  -  unlink dotfiles and unlink this manager"
+  echo "    install    -  symlink dotfiles and install plugins"
+  echo "    uninstall  -  unlink dotfiles"
   echo "    update     -  update submodules and plugins"
   echo "    help       -  display this help"
-}
-
-link_manager() {
-  echo "Symlinking dotfiles manager to ${USR_BIN}... "
-  sudo ln -sf ${DOTFILES_BIN}/${NAME} ${USR_BIN}/${NAME}
-  echo "done"
-}
-
-unlink_manager() {
-  echo "Unlinking dotfiles manager from ${USR_BIN}... "
-  sudo rm -f ${USR_BIN}/${NAME}
-  echo "done"
 }
 
 link_dotfiles() {
@@ -108,8 +95,6 @@ main() {
       echo ""
       link_dotfiles
       echo ""
-      link_manager
-      echo ""
       install_vim_plugins
       echo ""
       echo "Dotfiles from Zero to Hero is complete."
@@ -117,8 +102,6 @@ main() {
       ;;
     uninstall)
       unlink_dotfiles
-      echo ""
-      unlink_manager
       echo ""
       echo "Dotfiles uninstall complete."
       echo "Please reboot your shell."
