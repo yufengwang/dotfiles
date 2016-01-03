@@ -120,5 +120,6 @@ nmap <F9> :set mouse=""<CR>
 nmap <F12> :set spell!<CR>
 
 " plugin mappings
+nmap <F2> :BufExplorerHorizontalSplit<CR>
 nmap <F3> :NERDTreeToggle<CR>
 nmap <F4> :TagbarToggle<CR>
