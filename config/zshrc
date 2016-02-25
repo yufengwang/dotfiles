@@ -2,6 +2,8 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+ZLE_REMOVE_SUFFIX_CHARS=' \t\n;'
+
 bindkey -v
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^[[A' up-line-or-search
