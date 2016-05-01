@@ -2,7 +2,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-ZLE_REMOVE_SUFFIX_CHARS=' \t\n;'
+ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
 
 bindkey -v
 bindkey '^R' history-incremental-pattern-search-backward
@@ -29,6 +29,5 @@ PROMPT='%B|%n@%m:%2~|%#%b '
 export PATH=$HOME/.dotfiles/bin:$PATH
 export EDITOR=$(which vim)
 export TERM=xterm-256color
-
-# Load RVM into a shell session *as a function*
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export RUST_SRC_PATH=/usr/src/rust/src
+export PATH="$PATH:$HOME/.rvm/bin:$HOME/.cabal/bin:$HOME/.cargo/bin"
