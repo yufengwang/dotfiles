@@ -23,7 +23,7 @@
   default = tracking
 
 [color]
-	ui = true
+  ui = true
 
 [grep]
   extendRegexp = true
