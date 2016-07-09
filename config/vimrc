@@ -51,6 +51,7 @@ set autoindent expandtab
 set tabstop=4 shiftwidth=4 softtabstop=4
 autocmd filetype ruby set tabstop=2 shiftwidth=2 softtabstop=2
 autocmd filetype javascript set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd filetype json,html,css set tabstop=2 shiftwidth=2 softtabstop=2
 
 " enable native syntax highlight for markdown with .md extension
 autocmd BufNewFile,BufRead *.md set filetype=markdown
