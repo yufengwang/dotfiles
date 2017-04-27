@@ -25,6 +25,9 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
 Plugin 'cespare/vim-toml'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'pangloss/vim-javascript'
+Plugin 'artur-shaik/vim-javacomplete2'
+Plugin 'editorconfig/editorconfig-vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -38,7 +41,7 @@ set mouse=a             " enable mouse
 set scrolloff=5         " keep lines above and below cursor
 set autoread            " refresh when file is changed outside
 set spelllang=en_us     " set spelling language to English
-set background=dark
+colorscheme teal
 
 " searching
 set hlsearch            " highlight search terms
@@ -49,22 +52,27 @@ set smartcase           " case sensitive when uppercase present
 " tab settings
 set autoindent expandtab
 set tabstop=4 shiftwidth=4 softtabstop=4
-autocmd filetype ruby set tabstop=2 shiftwidth=2 softtabstop=2
-autocmd filetype javascript set tabstop=2 shiftwidth=2 softtabstop=2
-autocmd filetype json,html,css set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd filetype ruby,javascript,json,html,css
+  \ set tabstop=2 shiftwidth=2 softtabstop=2
 
 " enable native syntax highlight for markdown with .md extension
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 
-" enable ruby autocompletion features
+" enable ruby autocompletion
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
+" enable java autocompletion
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " kick vim into 256 colors
 if $TERM == 'xterm-256color' || $TERM == 'screen-256color' || $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
+
+" syntastic
+let g:syntastic_auto_loc_list = 1
 
 " vim-airline config
 set laststatus=2
@@ -87,8 +95,8 @@ let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabClosePreviewOnPopupClose = 1
 
 " vim-racer config
-let g:racer_cmd = "/home/yufeng/.cargo/bin/racer"
-let $RUST_SRC_PATH = "/usr/src/rust/src/"
+let g:racer_cmd = "racer"
+let $RUST_SRC_PATH = "/home/yufeng/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 
 " key mapping leader
 let mapleader = '\'
@@ -98,11 +106,6 @@ nnoremap <S-h> <C-w>h
 nnoremap <S-j> <C-w>j
 nnoremap <S-k> <C-w>k
 nnoremap <S-l> <C-w>l
-
-" tab settings
-nmap <leader>e :tabprevious<CR>
-nmap <leader>r :tabnext<CR>
-nmap <leader>t :tabedit <C-r>=expand("%:p:h")<CR>/
 
 " buffer settings
 nmap <C-b> :bprevious<CR>
@@ -121,13 +124,17 @@ nmap <leader>w :write<CR>
 nmap <leader>p :set paste!<CR>
 nmap <leader>ch :nohlsearch<CR>
 
-" function key mappings
+nmap <leader>rd <Plug>(rust-doc)
+nmap <leader>rf <Plug>(rust-def)
+nmap <leader>rs <Plug>(rust-def-split)
+nmap <leader>rv <Plug>(rust-def-vertical)
+
+" fn mappings
+nmap <F2> :BufExplorerHorizontalSplit<CR>
+nmap <F3> :NERDTreeToggle<CR>
+nmap <F4> :TagbarToggle<CR>
 nmap <F5> :edit<CR>
 nmap <F8> :set mouse=a<CR>
 nmap <F9> :set mouse=""<CR>
 nmap <F12> :set spell!<CR>
 
-" plugin mappings
-nmap <F2> :BufExplorerHorizontalSplit<CR>
-nmap <F3> :NERDTreeToggle<CR>
-nmap <F4> :TagbarToggle<CR>
