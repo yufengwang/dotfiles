@@ -1,15 +1,19 @@
+# shell history
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+# command line editing
 ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
 
+# key bindings
 bindkey -v
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^[[A' up-line-or-search
-bindkey '^[[B' down-line-or-search
-bindkey '^[[Z' reverse-menu-complete
+bindkey '^R' history-incremental-pattern-search-backward    # ctrl-r
+bindkey '^[[A' up-line-or-search                            # up-arrow
+bindkey '^[[B' down-line-or-search                          # down-arrow
+bindkey '^[[Z' reverse-menu-complete                        # shift-tab
 
+# options and extensions
 setopt appendhistory autocd extendedglob completealiases
 setopt histignoredups histignorespace
 setopt interactivecomments
@@ -24,20 +28,16 @@ promptinit
 zstyle :compinstall filename '${HOME}/.zshrc'
 zstyle ':completion:*' menu select
 
+PROMPT='%B|%n@%m:%2~|%#%b '
+
+# command aliases
 alias ls='ls --color=auto'
 alias la='ls --color=auto -a'
 alias ll='ls --color=auto -lh'
 alias lla='ls --color=auto -lha'
 alias grep='grep --color=auto'
 
-PROMPT='%B|%n@%m:%2~|%#%b '
-
 # export environment variables
-export PATH=$HOME/.dotfiles/bin:$PATH
-export EDITOR=$(which vim)
 export TERM=screen-256color
-export RUST_SRC_PATH=/usr/src/rust/src
-export PATH="$PATH:$HOME/.rvm/bin:$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/.AndroidStudio2.1/sdk/platform-tools"
-
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export EDITOR=$(which vim)
+export PATH=$PATH:$HOME/.dotfiles/bin:$HOME/.cargo/bin

@@ -10,23 +10,23 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'ervandew/supertab'
-Plugin 'ap/vim-css-color'
-Plugin 'gabrielelana/vim-markdown'
+Plugin 'majutsushi/tagbar'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'jlanzarotta/bufexplorer'
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
-Plugin 'cespare/vim-toml'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'artur-shaik/vim-javacomplete2'
+Plugin 'ap/vim-css-color'
+Plugin 'cespare/vim-toml'
+Plugin 'gabrielelana/vim-markdown'
 Plugin 'editorconfig/editorconfig-vim'
 call vundle#end()
 
@@ -55,6 +55,11 @@ set tabstop=4 shiftwidth=4 softtabstop=4
 autocmd filetype ruby,javascript,json,html,css
   \ set tabstop=2 shiftwidth=2 softtabstop=2
 
+" vim 256 colors
+if $TERM == 'xterm-256color' || $TERM == 'screen-256color' || $COLORTERM == 'gnome-terminal'
+  set t_Co=256
+endif
+
 " enable native syntax highlight for markdown with .md extension
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 
@@ -66,11 +71,6 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 " enable java autocompletion
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
-" kick vim into 256 colors
-if $TERM == 'xterm-256color' || $TERM == 'screen-256color' || $COLORTERM == 'gnome-terminal'
-  set t_Co=256
-endif
-
 " syntastic
 let g:syntastic_auto_loc_list = 1
 
@@ -79,24 +79,25 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 
 if !exists('g:airline_symbols')
+  " unicode symbols
   let g:airline_symbols = {}
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_symbols.spell = '⚐'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.branch = '⎇ '
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.maxlinenr = ''
+  let g:airline_symbols.whitespace = 'Ξ'
 endif
-
-" unicode symbols
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇ '
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.whitespace = 'Ξ'
 
 " supertab config
 let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabClosePreviewOnPopupClose = 1
 
 " vim-racer config
-let g:racer_cmd = "racer"
-let $RUST_SRC_PATH = "/home/yufeng/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+let g:racer_cmd = 'racer'
+let $RUST_SRC_PATH = $HOME . '/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
 " key mapping leader
 let mapleader = '\'
@@ -107,11 +108,9 @@ nnoremap <S-j> <C-w>j
 nnoremap <S-k> <C-w>k
 nnoremap <S-l> <C-w>l
 
-" buffer settings
-nmap <C-b> :bprevious<CR>
-nmap <C-n> :bnext<CR>
-nmap <C-d> :bdelete<CR>
-nmap <C-e> :edit <C-r>=expand("%:p:h")<CR>/
+" buffer navigation
+nmap <C-h> :bprevious<CR>
+nmap <C-l> :bnext<CR>
 
 " key mappings
 nnoremap j gj
@@ -122,8 +121,21 @@ nnoremap <leader>a ggvG$
 nmap <leader>q :quit<CR>
 nmap <leader>w :write<CR>
 nmap <leader>p :set paste!<CR>
-nmap <leader>ch :nohlsearch<CR>
+nmap <leader>e :edit <C-r>=expand('%:p:h')<CR>/
 
+" highlight mappings
+nmap <leader>hc :nohlsearch<CR>
+
+" split mappings
+nmap <leader>sh :split<CR>
+nmap <leader>sv :vsplit<CR>
+
+" buffer mappings
+nmap <leader>bd :bdelete<CR>
+nmap <leader>bf :bfirst<CR>
+nmap <leader>bl :blast<CR>
+
+" rust lookup mappings
 nmap <leader>rd <Plug>(rust-doc)
 nmap <leader>rf <Plug>(rust-def)
 nmap <leader>rs <Plug>(rust-def-split)
@@ -135,6 +147,5 @@ nmap <F3> :NERDTreeToggle<CR>
 nmap <F4> :TagbarToggle<CR>
 nmap <F5> :edit<CR>
 nmap <F8> :set mouse=a<CR>
-nmap <F9> :set mouse=""<CR>
+nmap <F9> :set mouse=''<CR>
 nmap <F12> :set spell!<CR>
-
