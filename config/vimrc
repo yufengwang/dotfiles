@@ -60,9 +60,6 @@ if $TERM == 'xterm-256color' || $TERM == 'screen-256color' || $COLORTERM == 'gno
   set t_Co=256
 endif
 
-" enable native syntax highlight for markdown with .md extension
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-
 " enable ruby autocompletion
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -70,9 +67,6 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " enable java autocompletion
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-" syntastic
-let g:syntastic_auto_loc_list = 1
 
 " vim-airline config
 set laststatus=2
@@ -94,6 +88,12 @@ endif
 " supertab config
 let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabClosePreviewOnPopupClose = 1
+
+" syntastic config
+let g:syntastic_auto_loc_list = 1
+
+" markdown config
+let g:markdown_enable_input_abbreviations = 0
 
 " vim-racer config
 let g:racer_cmd = 'racer'
