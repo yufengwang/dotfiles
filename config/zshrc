@@ -19,7 +19,7 @@ setopt histignoredups histignorespace
 setopt interactivecomments
 
 # custom completion scripts
-export fpath=(~/.zsh/completion $fpath)
+export fpath=(~/.zsh/completions $fpath)
 
 autoload -Uz compinit promptinit
 compinit
@@ -28,16 +28,21 @@ promptinit
 zstyle :compinstall filename '${HOME}/.zshrc'
 zstyle ':completion:*' menu select
 
-PROMPT='%B|%n@%m:%2~|%#%b '
+PROMPT='%Bλ|%2~%#%b '
+
+# set env vars for ls
+eval $(dircolors)
+export LC_COLLATE=C
 
 # command aliases
-alias ls='ls --color=auto'
-alias la='ls --color=auto -a'
-alias ll='ls --color=auto -lh'
-alias lla='ls --color=auto -lha'
+alias ls='ls --color=auto --indicator-style=classify --group-directories-first'
+alias ll='ls --human-readable -l'
+alias la='ll --all'
 alias grep='grep --color=auto'
+alias xcopy='xsel --clipboard'
+alias xpaste='xsel --clipboard'
 
 # export environment variables
 export TERM=screen-256color
 export EDITOR=$(which vim)
-export PATH=$PATH:$HOME/.dotfiles/bin:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/bin:$HOME/.dotfiles/bin:$HOME/.cargo/bin:$(ruby -r rubygems -e "puts Gem.user_dir")/bin

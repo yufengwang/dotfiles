@@ -8,26 +8,34 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
+" core
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'ervandew/supertab'
+" essential
 Plugin 'majutsushi/tagbar'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
 Plugin 'jlanzarotta/bufexplorer'
-Plugin 'rust-lang/rust.vim'
+" autocompletion
+Plugin 'ervandew/supertab'
+Plugin 'scrooloose/syntastic'
 Plugin 'racer-rust/vim-racer'
+Plugin 'artur-shaik/vim-javacomplete2'
+" external
+Plugin 'tpope/vim-fugitive'
+" editing
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'editorconfig/editorconfig-vim'
+" language support
+Plugin 'dag/vim-fish'
+Plugin 'rust-lang/rust.vim'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
-Plugin 'artur-shaik/vim-javacomplete2'
-Plugin 'ap/vim-css-color'
-Plugin 'cespare/vim-toml'
 Plugin 'gabrielelana/vim-markdown'
-Plugin 'editorconfig/editorconfig-vim'
+Plugin 'jrozner/vim-antlr'
+Plugin 'cespare/vim-toml'
+Plugin 'ap/vim-css-color'
 call vundle#end()
 
 filetype plugin indent on
@@ -52,7 +60,7 @@ set smartcase           " case sensitive when uppercase present
 " tab settings
 set autoindent expandtab
 set tabstop=4 shiftwidth=4 softtabstop=4
-autocmd filetype ruby,javascript,json,html,css
+autocmd filetype ruby,javascript,json,html,css,scss,yaml,liquid,xml
   \ set tabstop=2 shiftwidth=2 softtabstop=2
 
 " vim 256 colors
@@ -91,13 +99,14 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 
 " syntastic config
 let g:syntastic_auto_loc_list = 1
+"let g:syntastic_rust_checkers = ['rustc']
+"let g:syntastic_rust_checkers = ['cargo']
+
+" vim-racer config
+let g:racer_experimental_completer = 1
 
 " markdown config
 let g:markdown_enable_input_abbreviations = 0
-
-" vim-racer config
-let g:racer_cmd = 'racer'
-let $RUST_SRC_PATH = $HOME . '/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
 " key mapping leader
 let mapleader = '\'
@@ -111,6 +120,7 @@ nnoremap <S-l> <C-w>l
 " buffer navigation
 nmap <C-h> :bprevious<CR>
 nmap <C-l> :bnext<CR>
+nmap <C-x> :bdelete<CR>
 
 " key mappings
 nnoremap j gj
@@ -131,7 +141,6 @@ nmap <leader>sh :split<CR>
 nmap <leader>sv :vsplit<CR>
 
 " buffer mappings
-nmap <leader>bd :bdelete<CR>
 nmap <leader>bf :bfirst<CR>
 nmap <leader>bl :blast<CR>
 

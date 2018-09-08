@@ -2,10 +2,11 @@
 *.swp
 *.netrwhist
 
-# ignore all bundles except vundle
-config/vim/bundle/
+# ignore all vim stuff except a couple things to track
+config/vim/
+!!config/vim/colors/
 !config/vim/bundle/Vundle.vim
 
-#ignore all tmux plugins except tpm
+# ignore all tmux plugins except tpm
 config/tmux/plugins/
 !config/tmux/plugins/tpm

@@ -84,12 +84,12 @@ let g:colors_name="teal"
 
 
 "" layout
-hi LineNr           ctermfg=244 ctermbg=232 cterm=bold
+hi LineNr           ctermfg=244 ctermbg=235 cterm=bold
 hi VertSplit        ctermfg=244 ctermbg=246 cterm=bold
 
 "" complete menu
 hi Pmenu            ctermfg=250 ctermbg=238
 hi PmenuSel         ctermfg=255 ctermbg=25
-hi PmenuSbar                    ctermbg=232
+hi PmenuSbar                    ctermbg=234
 hi PmenuThumb       ctermfg=250
 
