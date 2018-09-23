@@ -22,6 +22,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'racer-rust/vim-racer'
 Plugin 'artur-shaik/vim-javacomplete2'
 " external
+Plugin 'benmills/vimux'
 Plugin 'tpope/vim-fugitive'
 " editing
 Plugin 'tpope/vim-surround'
@@ -108,6 +109,10 @@ let g:racer_experimental_completer = 1
 " markdown config
 let g:markdown_enable_input_abbreviations = 0
 
+" vimux config
+let g:VimuxOrientation = "h"
+let g:VimuxPromptString = "vimux$ "
+
 " key mapping leader
 let mapleader = '\'
 
@@ -137,8 +142,8 @@ nmap <leader>e :edit <C-r>=expand('%:p:h')<CR>/
 nmap <leader>hc :nohlsearch<CR>
 
 " split mappings
-nmap <leader>sh :split<CR>
-nmap <leader>sv :vsplit<CR>
+nmap <leader>sh :split<Space>
+nmap <leader>sv :vsplit<Space>
 
 " buffer mappings
 nmap <leader>bf :bfirst<CR>
@@ -150,11 +155,20 @@ nmap <leader>rf <Plug>(rust-def)
 nmap <leader>rs <Plug>(rust-def-split)
 nmap <leader>rv <Plug>(rust-def-vertical)
 
+" vimux mappings
+nmap <leader>vx :VimuxPromptCommand<CR>
+nmap <leader>vl :VimuxRunLastCommand<CR>
+nmap <leader>vk :VimuxInterruptRunner<CR>
+nmap <leader>vv :VimuxInspectRunner<CR>
+nmap <leader>vz :VimuxZoomRunner<CR>
+nmap <leader>vc :VimuxClearRunnerHistory<CR>
+nmap <leader>vq :VimuxCloseRunner<CR>
+
 " fn mappings
 nmap <F2> :BufExplorerHorizontalSplit<CR>
 nmap <F3> :NERDTreeToggle<CR>
 nmap <F4> :TagbarToggle<CR>
 nmap <F5> :edit<CR>
 nmap <F8> :set mouse=a<CR>
-nmap <F9> :set mouse=''<CR>
+nmap <F9> :set mouse=""<CR>
 nmap <F12> :set spell!<CR>
