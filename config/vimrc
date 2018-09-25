@@ -110,6 +110,8 @@ let g:racer_experimental_completer = 1
 let g:markdown_enable_input_abbreviations = 0
 
 " vimux config
+let g:VimuxHeight = "40"
+let g:VimuxUseNearest = 0
 let g:VimuxOrientation = "h"
 let g:VimuxPromptString = "vimux$ "
 
@@ -159,7 +161,7 @@ nmap <leader>rv <Plug>(rust-def-vertical)
 nmap <leader>vx :VimuxPromptCommand<CR>
 nmap <leader>vl :VimuxRunLastCommand<CR>
 nmap <leader>vk :VimuxInterruptRunner<CR>
-nmap <leader>vv :VimuxInspectRunner<CR>
+nmap <leader>vi :VimuxInspectRunner<CR>
 nmap <leader>vz :VimuxZoomRunner<CR>
 nmap <leader>vc :VimuxClearRunnerHistory<CR>
 nmap <leader>vq :VimuxCloseRunner<CR>
