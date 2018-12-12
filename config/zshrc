@@ -35,6 +35,7 @@ eval $(dircolors)
 export LC_COLLATE=C
 
 # command aliases
+alias plz='sudo'
 alias ls='ls --color=auto --indicator-style=classify --group-directories-first'
 alias ll='ls --human-readable -l'
 alias la='ll --all'
@@ -45,4 +46,4 @@ alias xpaste='xsel --clipboard'
 # export environment variables
 export TERM=xterm-256color
 export EDITOR=$(which vim)
-export PATH=$PATH:$HOME/bin:$HOME/.dotfiles/bin:$HOME/.cargo/bin:$(ruby -r rubygems -e "puts Gem.user_dir")/bin
+export PATH=$PATH:$HOME/bin:$HOME/.dotfiles/bin:$HOME/.cargo/bin
