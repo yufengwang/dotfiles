@@ -3,45 +3,37 @@
 " make vim more useful!
 set nocompatible
 
-" Vundle plugin manager
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-
-call vundle#begin()
-" core
-Plugin 'gmarik/Vundle.vim'
-Plugin 'bling/vim-airline'
-" essential
-Plugin 'majutsushi/tagbar'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jlanzarotta/bufexplorer'
+" plugins
+call plug#begin('~/.vim/plugged')
+"" essential
+Plug 'bling/vim-airline'
+Plug 'majutsushi/tagbar'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'jlanzarotta/bufexplorer'
 " autocompletion
-Plugin 'ervandew/supertab'
-Plugin 'scrooloose/syntastic'
-Plugin 'racer-rust/vim-racer'
-Plugin 'artur-shaik/vim-javacomplete2'
+Plug 'ervandew/supertab'
+Plug 'scrooloose/syntastic'
+Plug 'racer-rust/vim-racer'
+Plug 'artur-shaik/vim-javacomplete2'
 " external
-Plugin 'benmills/vimux'
-Plugin 'tpope/vim-fugitive'
+Plug 'benmills/vimux'
+Plug 'tpope/vim-fugitive'
 " editing
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'editorconfig/editorconfig-vim'
 " language support
-Plugin 'dag/vim-fish'
-Plugin 'rust-lang/rust.vim'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'pangloss/vim-javascript'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'gabrielelana/vim-markdown'
-Plugin 'jrozner/vim-antlr'
-Plugin 'cespare/vim-toml'
-Plugin 'ap/vim-css-color'
-call vundle#end()
-
-filetype plugin indent on
-syntax on
+Plug 'dag/vim-fish'
+Plug 'rust-lang/rust.vim'
+Plug 'vim-ruby/vim-ruby'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'gabrielelana/vim-markdown'
+Plug 'jrozner/vim-antlr'
+Plug 'cespare/vim-toml'
+Plug 'ap/vim-css-color'
+call plug#end()
 
 " vim behavior
 set title               " change terminal title

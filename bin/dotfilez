@@ -83,12 +83,19 @@ update_submodules() {
 
 install_vim_plugins() {
   printf '> installing vim plugins\n'
-  vim +PluginInstall +qall
+  vim +PlugInstall
 }
 
 update_vim_plugins() {
   printf '> updating vim plugins\n'
-  vim +PluginInstall! +qall
+  vim +PlugUpgrade
+  vim +PlugUpdate
+  vim +PlugClean
+}
+
+download_vim_plug() {
+  curl -sfLo ~/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 main() {
@@ -96,6 +103,7 @@ main() {
     install)
       setup_submodules
       link_dotfiles
+      download_vim_plug
       install_vim_plugins
       printf '> install complete. please reboot your shell.\n'
       ;;
