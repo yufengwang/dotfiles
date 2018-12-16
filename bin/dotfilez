@@ -8,7 +8,7 @@ NAME="dotfilez"
 HOME="$(echo ~)"
 ROOT_DIR="$HOME/.dotfiles"
 BIN_DIR="$ROOT_DIR/bin"
-SRC_DIR="$ROOT_DIR/config"
+SRC_DIR="$ROOT_DIR/dot"
 
 print_help() {
   echo "$NAME - A simple CLI for dotfile management"
@@ -37,14 +37,14 @@ link_dotfiles() {
     local src_file="$SRC_DIR/$file"
     local dest_file="$HOME/.$file"
 
-    if [[ -e "$dest_file" ]] && [[ ! -L "$dest_file" ]]; then
-      mv "$dest_file" "$dest_file.bkup"
-      ln -s "$src_file" "$dest_file"
-      printf '%s: backed up to %s\n' ".$file" ".$file.bkup"
-    elif [[ -e "$dest_file" ]] && [[ -L "$dest_file" ]]; then
+    if [[ -L "$dest_file" ]]; then
       rm -rf "$dest_file"
       ln -s "$src_file" "$dest_file"
       printf '%s: symlink replaced\n' ".$file"
+    elif [[ -e "$dest_file" ]]; then
+      mv "$dest_file" "$dest_file.bkup"
+      ln -s "$src_file" "$dest_file"
+      printf '%s: backed up to %s\n' ".$file" ".$file.bkup"
     else
       ln -s "$src_file" "$dest_file"
       printf '%s: symlinked\n' ".$file"
