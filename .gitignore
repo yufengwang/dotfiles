@@ -1,12 +1,12 @@
-*.DS_Store
 *.swp
+*.DS_Store
 *.netrwhist
+
+# ignore all tmux plugins except tpm
+config/tmux/plugins/
+!config/tmux/plugins/tpm
 
 # ignore all vim stuff except a couple things to track
 config/vim/
 !!config/vim/colors/
 !config/vim/bundle/Vundle.vim
-
-# ignore all tmux plugins except tpm
-config/tmux/plugins/
-!config/tmux/plugins/tpm
