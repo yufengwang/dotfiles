@@ -35,7 +35,6 @@ eval $(dircolors)
 export LC_COLLATE=C
 
 # command aliases
-alias plz='sudo'
 alias ls='ls --color=auto --indicator-style=classify --group-directories-first'
 alias ll='ls --human-readable -l'
 alias la='ll --all'
@@ -47,3 +46,6 @@ alias xpaste='xsel --clipboard'
 export TERM=xterm-256color
 export EDITOR=$(which vim)
 export PATH=$PATH:$HOME/bin:$HOME/.dotfiles/bin:$HOME/.cargo/bin
+
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh

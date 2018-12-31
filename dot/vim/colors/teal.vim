@@ -1,11 +1,12 @@
-" Vim color scheme for Teal
+" vim colorscheme for Teal
 
 set background=dark
 hi clear
 if exists("syntax_on")
-    syntax reset
+  syntax reset
 endif
 let g:colors_name="teal"
+
 
 "hi Normal           ctermfg=250
 "hi CursorLine                   ctermbg=232 cterm=none
@@ -83,11 +84,14 @@ let g:colors_name="teal"
 "hi SpecialKey       ctermfg=244
 
 
-"" layout
-hi LineNr           ctermfg=244 ctermbg=235 cterm=bold
-hi VertSplit        ctermfg=244 ctermbg=246 cterm=bold
+" layout
+hi LineNr           cterm=bold ctermfg=244 ctermbg=235
+hi VertSplit        cterm=bold ctermfg=244 ctermbg=246
 
-"" complete menu
+" tab line
+hi TabLine          cterm=none
+
+" completion menu
 hi Pmenu            ctermfg=250 ctermbg=238
 hi PmenuSel         ctermfg=255 ctermbg=25
 hi PmenuSbar                    ctermbg=234

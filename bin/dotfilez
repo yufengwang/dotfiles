@@ -98,23 +98,35 @@ download_vim_plug() {
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
+run_install() {
+  setup_submodules
+  link_dotfiles
+  download_vim_plug
+  install_vim_plugins
+  printf '> install complete. please reboot your shell.\n'
+}
+
+run_uninstall() {
+  unlink_dotfiles
+  printf '> uninstall complete. please reboot your shell.\n'
+}
+
+run_update() {
+  update_submodules
+  update_vim_plugins
+  printf '> update complete.\n'
+}
+
 main() {
   case "$1" in
     install)
-      setup_submodules
-      link_dotfiles
-      download_vim_plug
-      install_vim_plugins
-      printf '> install complete. please reboot your shell.\n'
+      run_install
       ;;
     uninstall)
-      unlink_dotfiles
-      printf '> uninstall complete. please reboot your shell.\n'
+      run_uninstall
       ;;
     update)
-      update_submodules
-      update_vim_plugins
-      printf '> update complete.\n'
+      run_update
       ;;
     help)
       print_help

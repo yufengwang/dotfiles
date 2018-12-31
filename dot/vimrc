@@ -3,46 +3,108 @@
 " make vim more useful!
 set nocompatible
 
+"
+" plugin configs
+"
+
+" builtin tree explorer
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_liststyle = 3
+let g:netrw_winsize = 25
+
+" lightline config
+let g:lightline = {
+\   'mode_map': {'n': 'N', 'i': 'I', 'v': 'V', 'R': 'R'},
+\   'active': {
+\     'left': [
+\       ['mode', 'paste', 'spell'],
+\       ['readonly', 'filename', 'modified']
+\     ],
+\   },
+\   'component': {
+\     'paste': '%{&paste ? "¶" : ""}',
+\     'spell': '%{&spell ? "⚐ " . &spelllang : ""}',
+\   },
+\   'component_function': {
+\     'fileencoding': 'LightlineFileencoding',
+\     'fileformat': 'LightlineFileformat',
+\   },
+\ }
+
+function! LightlineFileencoding()
+  let l:enc = &fenc !=# '' ? &fenc : &enc
+  return l:enc ==# 'utf-8' ? '' : l:enc
+endfunction
+
+function! LightlineFileformat()
+  return &ff ==# 'unix' ? '' : &ff
+endfunction
+
+" buftabline config
+let g:buftabline_show = 1
+let g:buftabline_numbers = 2
+let g:buftabline_indicators = 1
+
+" supertab config
+let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabClosePreviewOnPopupClose = 1
+
+" gutentags config
+let g:gutentags_cache_dir = '~/.cache/gutentags'
+
+" vimux config
+let g:VimuxHeight = '40'
+let g:VimuxUseNearest = 0
+let g:VimuxOrientation = 'h'
+let g:VimuxPromptString = 'vimux$ '
+
+" vim-racer config
+let g:racer_experimental_completer = 1
+augroup racer_disable_preview
+  autocmd!
+  autocmd filetype rust setlocal completeopt-=preview
+augroup END
+
+"
 " plugins
+"
+
 call plug#begin('~/.vim/plugged')
-"" essential
-Plug 'bling/vim-airline'
-Plug 'majutsushi/tagbar'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'jlanzarotta/bufexplorer'
-" autocompletion
+Plug 'itchyny/lightline.vim'
+Plug 'ap/vim-buftabline'
 Plug 'ervandew/supertab'
-Plug 'scrooloose/syntastic'
-Plug 'racer-rust/vim-racer'
-Plug 'artur-shaik/vim-javacomplete2'
-" external
-Plug 'benmills/vimux'
-Plug 'tpope/vim-fugitive'
-" editing
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
+Plug '/usr/share/vim/vimfiles/plugin/fzf.vim', {'on': 'FZF'}
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'editorconfig/editorconfig-vim'
-" language support
-Plug 'dag/vim-fish'
-Plug 'rust-lang/rust.vim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'gabrielelana/vim-markdown'
-Plug 'jrozner/vim-antlr'
+Plug 'benmills/vimux'
+Plug 'racer-rust/vim-racer', {'for': 'rust'}
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'cespare/vim-toml'
+Plug 'jrozner/vim-antlr'
 Plug 'ap/vim-css-color'
 call plug#end()
 
+"
+" settings
+"
+
+" vim 256 colors
+if $TERM == 'xterm-256color' || $TERM == 'screen-256color'
+  set t_Co=256
+endif
+
 " vim behavior
-set title               " change terminal title
-set number              " set line numbering
-set hidden              " hide buffers instead of closing
-set mouse=a             " enable mouse
-set scrolloff=5         " keep lines above and below cursor
 set autoread            " refresh when file is changed outside
+set hidden              " hide buffers instead of closing
+set laststatus=2        " always show status line
+set mouse=a             " start with mouse enabled
+set noshowmode          " hide mode line for insert/visual/replace
+set number              " show line numbering
+set scrolloff=5         " keep lines above and below cursor
 set spelllang=en_us     " set spelling language to English
+set title               " change terminal title
 colorscheme teal
 
 " searching
@@ -53,117 +115,98 @@ set smartcase           " case sensitive when uppercase present
 
 " tab settings
 set autoindent expandtab
-set tabstop=4 shiftwidth=4 softtabstop=4
-autocmd filetype ruby,javascript,json,html,css,scss,yaml,liquid,xml
-  \ set tabstop=2 shiftwidth=2 softtabstop=2
+set tabstop=4 softtabstop=4 shiftwidth=4
+augroup filetype_tabs
+  autocmd!
+  autocmd filetype html,css,scss    setlocal ts=2 sts=2 sw=2
+  autocmd filetype javascript,json  setlocal ts=2 sts=2 sw=2
+  autocmd filetype ruby,liquid      setlocal ts=2 sts=2 sw=2
+  autocmd filetype toml,xml,yaml    setlocal ts=2 sts=2 sw=2
+  autocmd filetype sh,tmux,vim,zsh  setlocal ts=2 sts=2 sw=2
+augroup END
 
-" vim 256 colors
-if $TERM == 'xterm-256color' || $TERM == 'screen-256color' || $COLORTERM == 'gnome-terminal'
-  set t_Co=256
-endif
-
-" enable ruby autocompletion
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-
-" enable java autocompletion
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-" vim-airline config
-set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
-
-if !exists('g:airline_symbols')
-  " unicode symbols
-  let g:airline_symbols = {}
-  let g:airline_left_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_symbols.spell = '⚐'
-  let g:airline_symbols.paste = 'ρ'
-  let g:airline_symbols.branch = '⎇ '
-  let g:airline_symbols.linenr = '¶'
-  let g:airline_symbols.maxlinenr = ''
-  let g:airline_symbols.whitespace = 'Ξ'
-endif
-
-" supertab config
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabClosePreviewOnPopupClose = 1
-
-" syntastic config
-let g:syntastic_auto_loc_list = 1
-"let g:syntastic_rust_checkers = ['rustc']
-"let g:syntastic_rust_checkers = ['cargo']
-
-" vim-racer config
-let g:racer_experimental_completer = 1
-
-" markdown config
-let g:markdown_enable_input_abbreviations = 0
-
-" vimux config
-let g:VimuxHeight = "40"
-let g:VimuxUseNearest = 0
-let g:VimuxOrientation = "h"
-let g:VimuxPromptString = "vimux$ "
+"
+" key bindings
+"
 
 " key mapping leader
 let mapleader = '\'
 
 " window navigation
-nnoremap <S-h> <C-w>h
-nnoremap <S-j> <C-w>j
-nnoremap <S-k> <C-w>k
-nnoremap <S-l> <C-w>l
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <leader>sh :split<space>
+nnoremap <leader>sv :vsplit<space>
 
 " buffer navigation
-nmap <C-h> :bprevious<CR>
-nmap <C-l> :bnext<CR>
-nmap <C-x> :bdelete<CR>
+nnoremap <c-n> :bnext<cr>
+nnoremap <c-p> :bprevious<cr>
+nnoremap <c-x> :bdelete<cr>
+nmap <leader>1 <plug>BufTabLine.Go(1)
+nmap <leader>2 <plug>BufTabLine.Go(2)
+nmap <leader>3 <plug>BufTabLine.Go(3)
+nmap <leader>4 <plug>BufTabLine.Go(4)
+nmap <leader>5 <plug>BufTabLine.Go(5)
+nmap <leader>6 <plug>BufTabLine.Go(6)
+nmap <leader>7 <plug>BufTabLine.Go(7)
+nmap <leader>8 <plug>BufTabLine.Go(8)
+nmap <leader>9 <plug>BufTabLine.Go(9)
+nmap <leader>0 <plug>BufTabLine.Go(10)
 
 " key mappings
 nnoremap j gj
 nnoremap k gk
+nnoremap <c-f> :FZF<cr>
+inoremap <c-u> <esc>viw~ea
 
 " leader mappings
 nnoremap <leader>a ggvG$
-nmap <leader>q :quit<CR>
-nmap <leader>w :write<CR>
-nmap <leader>p :set paste!<CR>
-nmap <leader>e :edit <C-r>=expand('%:p:h')<CR>/
-
-" highlight mappings
-nmap <leader>hc :nohlsearch<CR>
-
-" split mappings
-nmap <leader>sh :split<Space>
-nmap <leader>sv :vsplit<Space>
-
-" buffer mappings
-nmap <leader>bf :bfirst<CR>
-nmap <leader>bl :blast<CR>
+nnoremap <leader>q :quit<cr>
+nnoremap <leader>w :write<cr>
+nnoremap <leader>e :edit <c-r>=expand('%:p:h')<cr>/
+nnoremap <leader>hc :nohlsearch<cr>
 
 " rust lookup mappings
-nmap <leader>rd <Plug>(rust-doc)
-nmap <leader>rf <Plug>(rust-def)
-nmap <leader>rs <Plug>(rust-def-split)
-nmap <leader>rv <Plug>(rust-def-vertical)
+nmap <leader>rd <plug>(rust-doc)
+nmap <leader>rf <plug>(rust-def)
+nmap <leader>rs <plug>(rust-def-split)
+nmap <leader>rv <plug>(rust-def-vertical)
 
 " vimux mappings
-nmap <leader>vx :VimuxPromptCommand<CR>
-nmap <leader>vl :VimuxRunLastCommand<CR>
-nmap <leader>vk :VimuxInterruptRunner<CR>
-nmap <leader>vi :VimuxInspectRunner<CR>
-nmap <leader>vz :VimuxZoomRunner<CR>
-nmap <leader>vc :VimuxClearRunnerHistory<CR>
-nmap <leader>vq :VimuxCloseRunner<CR>
+nnoremap <leader>xv :VimuxPromptCommand<cr>
+nnoremap <leader>xl :VimuxRunLastCommand<cr>
+nnoremap <leader>xk :VimuxInterruptRunner<cr>
+nnoremap <leader>xi :VimuxInspectRunner<cr>
+nnoremap <leader>xz :VimuxZoomRunner<cr>
+nnoremap <leader>xc :VimuxClearRunnerHistory<cr>
+nnoremap <leader>xq :VimuxCloseRunner<cr>
+
+" vim hot-reload
+nnoremap <leader>ve :edit $MYVIMRC<cr>
+nnoremap <leader>vs :source $MYVIMRC<cr>
 
 " fn mappings
-nmap <F2> :BufExplorerHorizontalSplit<CR>
-nmap <F3> :NERDTreeToggle<CR>
-nmap <F4> :TagbarToggle<CR>
-nmap <F5> :edit<CR>
-nmap <F8> :set mouse=a<CR>
-nmap <F9> :set mouse=""<CR>
-nmap <F12> :set spell!<CR>
+nnoremap <F5> :edit<cr>
+nnoremap <F6> :call MouseToggle()<cr>
+nnoremap <F7> :Vexplore<cr>
+nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F9> :lopen<cr>
+nnoremap <F10> :lclose<cr>
+nnoremap <F11> :set paste!<cr>
+nnoremap <F12> :set spell!<cr>
+
+"
+" functions
+"
+
+function! MouseToggle()
+  if &mouse ==# ''
+    set mouse=a
+    echomsg 'mouse on'
+  else
+    set mouse=
+    echomsg 'mouse off'
+  endif
+endfunction
