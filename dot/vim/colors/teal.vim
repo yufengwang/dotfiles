@@ -86,10 +86,11 @@ let g:colors_name="teal"
 
 " layout
 hi LineNr           cterm=bold ctermfg=244 ctermbg=235
-hi VertSplit        cterm=bold ctermfg=244 ctermbg=246
+hi VertSplit        cterm=bold ctermfg=246 ctermbg=246
 
 " tab line
 hi TabLine          cterm=none
+hi TabLineFill      cterm=none             ctermbg=246
 
 " completion menu
 hi Pmenu            ctermfg=250 ctermbg=238
