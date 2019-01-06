@@ -45,8 +45,6 @@ endfunction
 let g:buftabline_show = 1
 let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
-hi link BufTabLineHidden LightlineLeft_normal_1
-hi link BufTabLineActive LightlineRight_normal_0
 
 " supertab config
 let g:SuperTabDefaultCompletionType = 'context'
@@ -92,11 +90,6 @@ call plug#end()
 " settings
 "
 
-" vim 256 colors
-if $TERM == 'xterm-256color' || $TERM == 'screen-256color'
-  set t_Co=256
-endif
-
 " vim behavior
 set autoread            " refresh when file is changed outside
 set hidden              " hide buffers instead of closing
@@ -107,7 +100,6 @@ set number              " show line numbering
 set scrolloff=5         " keep lines above and below cursor
 set spelllang=en_us     " set spelling language to English
 set title               " change terminal title
-colorscheme teal
 
 " searching
 set hlsearch            " highlight search terms
@@ -126,6 +118,33 @@ augroup filetype_tabs
   autocmd filetype toml,xml,yaml    setlocal ts=2 sts=2 sw=2
   autocmd filetype sh,tmux,vim,zsh  setlocal ts=2 sts=2 sw=2
 augroup END
+
+"
+" colors
+"
+
+" vim 256 colors
+if $TERM == 'xterm-256color' || $TERM == 'screen-256color'
+  set t_Co=256
+endif
+
+set background=dark
+
+" layout
+hi LineNr           cterm=bold ctermfg=244 ctermbg=235
+hi VertSplit        cterm=bold ctermfg=246 ctermbg=246
+
+" tab line
+hi TabLine          cterm=none
+hi TabLineFill      cterm=none ctermbg=246
+hi link BufTabLineHidden LightlineLeft_normal_1
+hi link BufTabLineActive LightlineRight_normal_0
+
+" completion menu
+hi Pmenu            ctermfg=250 ctermbg=238
+hi PmenuSel         ctermfg=255 ctermbg=25
+hi PmenuSbar        ctermbg=234
+hi PmenuThumb       ctermfg=250
 
 "
 " key bindings
