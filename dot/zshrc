@@ -1,32 +1,30 @@
+setopt interactive_comments
+setopt auto_cd complete_aliases extended_glob
+setopt append_history hist_ignore_dups hist_ignore_space
+
 # shell history
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
 # command line editing
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
 ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
 
-# key bindings
-bindkey -v
-bindkey '^R' history-incremental-pattern-search-backward    # ctrl-r
-bindkey '^[[A' up-line-or-search                            # up-arrow
-bindkey '^[[B' down-line-or-search                          # down-arrow
-bindkey '^[[Z' reverse-menu-complete                        # shift-tab
+# tab completion
+fpath=(~/.zsh/completions $fpath)
+typeset -U fpath
 
-# options and extensions
-setopt appendhistory autocd extendedglob completealiases
-setopt histignoredups histignorespace
-setopt interactivecomments
-
-# custom completion scripts
-export fpath=(~/.zsh/completions $fpath)
-
-autoload -Uz compinit promptinit
+autoload -Uz compinit
 compinit
-promptinit
 
-zstyle :compinstall filename '${HOME}/.zshrc'
 zstyle ':completion:*' menu select
+
+# shell prompt
+autoload -Uz promptinit
+promptinit
 
 PROMPT='%Bλ|%2~%#%b '
 
@@ -34,18 +32,27 @@ PROMPT='%Bλ|%2~%#%b '
 eval $(dircolors)
 export LC_COLLATE=C
 
+# environment variables
+export TERM=xterm-256color
+export EDITOR=$(which vim)
+export PATH=$PATH:$HOME/bin:$HOME/.dotfiles/bin:$HOME/.cargo/bin
+typeset -U PATH
+
+# key bindings
+bindkey -v
+bindkey '^R' history-incremental-pattern-search-backward    # ctrl-r
+bindkey '^[[A' up-line-or-search                            # up-arrow
+bindkey '^[[B' down-line-or-search                          # down-arrow
+bindkey '^[[Z' reverse-menu-complete                        # shift-tab
+bindkey -M vicmd '^V' edit-command-line
+
 # command aliases
-alias ls='ls --color=auto --indicator-style=classify --group-directories-first'
+alias ls='ls --color=auto --classify --group-directories-first'
 alias ll='ls --human-readable -l'
 alias la='ll --all'
 alias grep='grep --color=auto'
 alias xcopy='xsel --clipboard'
 alias xpaste='xsel --clipboard'
-
-# export environment variables
-export TERM=xterm-256color
-export EDITOR=$(which vim)
-export PATH=$PATH:$HOME/bin:$HOME/.dotfiles/bin:$HOME/.cargo/bin
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh

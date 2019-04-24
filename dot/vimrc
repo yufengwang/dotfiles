@@ -7,12 +7,6 @@ set nocompatible
 " plugin configs
 "
 
-" builtin tree explorer
-let g:netrw_banner = 0
-let g:netrw_browse_split = 4
-let g:netrw_liststyle = 3
-let g:netrw_winsize = 25
-
 " lightline config
 let g:lightline = {
 \   'mode_map': {'n': 'N', 'i': 'I', 'v': 'V', 'R': 'R'},
@@ -76,6 +70,7 @@ Plug 'ap/vim-buftabline'
 Plug 'ervandew/supertab'
 Plug '/usr/share/vim/vimfiles/plugin/fzf.vim', {'on': 'FZF'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'benmills/vimux'
@@ -164,7 +159,7 @@ nnoremap <leader>sv :vsplit<space>
 " buffer navigation
 nnoremap <c-n> :bnext<cr>
 nnoremap <c-p> :bprevious<cr>
-nnoremap <c-x> :bdelete<cr>
+nnoremap <c-x> :bprevious \| bdelete #<cr>
 nmap <leader>1 <plug>BufTabLine.Go(1)
 nmap <leader>2 <plug>BufTabLine.Go(2)
 nmap <leader>3 <plug>BufTabLine.Go(3)
@@ -181,6 +176,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <c-f> :FZF<cr>
 inoremap <c-u> <esc>viw~ea
+vnoremap // y/<c-r>"<cr>
 
 " leader mappings
 nnoremap <leader>a ggvG$
@@ -211,8 +207,8 @@ nnoremap <leader>vs :source $MYVIMRC<cr>
 " fn mappings
 nnoremap <F5> :edit<cr>
 nnoremap <F6> :call MouseToggle()<cr>
-nnoremap <F7> :Vexplore<cr>
-nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F7> :NERDTreeToggle<cr>
+nnoremap <F8> :TagbarToggle<cr>
 nnoremap <F9> :lopen<cr>
 nnoremap <F10> :lclose<cr>
 nnoremap <F11> :set paste!<cr>
