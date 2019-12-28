@@ -26,7 +26,11 @@ zstyle ':completion:*' menu select
 autoload -Uz promptinit
 promptinit
 
-PROMPT='%Bλ|%2~%#%b '
+if [[ -n "$SSH_CONNECTION" ]]; then
+  PROMPT='%B%n@%m|%2~%#%b '
+else
+  PROMPT='%Bλ|%2~%#%b '
+fi
 
 # set env vars for ls
 eval $(dircolors)
