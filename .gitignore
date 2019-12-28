@@ -6,6 +6,6 @@
 dot/tmux/plugins/
 !dot/tmux/plugins/tpm
 
-# ignore all vim files except colorscheme
+# ignore vim files
 dot/vim/
-!dot/vim/colors/teal.vim
+!dot/vim/.keep

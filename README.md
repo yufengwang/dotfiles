@@ -21,14 +21,14 @@ $ curl -sL https://raw.github.com/yufengwng/dotfiles/master/install.sh | sh
 Or if you prefer the more manual way:
 
 ``` bash
-$ git clone https://github.com/yufengwng/dotfiles.git ~/.dotfiles
+$ git clone git@github.com:yufengwng/dotfiles.git ~/.dotfiles
 $ ~/.dotfiles/install.sh
 ```
 
 A bit of manual work before you're ready to go:
 
-1. fire up `tmux` and hit `prefix + I` to [install tmux plugins][tpm]
-2. install `ctags` for `Tagbar` vim plugin via your distro's package manager
+1. Fire up `tmux` and hit `prefix + I` to [install tmux plugins][tpm]
+2. Install `ctags` for `Tagbar` vim plugin via your distro's package manager
 
 ## Uninstall
 
@@ -46,12 +46,10 @@ $ rm -rf ~/.dotfiles
 
 ## Update
 
-Vim plugins are managed by `Vundle`. The Vundle bundle is being managed
-as a git submodule. Vim plugins will be installed by Vundle into
-`~/.dotfiles/config/vim/bundle`, but ignored by git.
-
-The same case is for tmux plugins. The TPM is being managed as a git
-submodule, and plugins are installed into `~/.dotfiles/config/tmux/plugins`.
+Vim plugins are managed by [vim-plug][]. It is installed on-the-fly by the
+install process, and automatically updated as part of `dotfilez`'s update
+process. The Tmux Plugin Manager (TPM) is being managed as a git submodule, and
+plugins are installed into `~/.dotfiles/config/tmux/plugins`.
 
 To update, simply invoke the `dotfilez` manager:
 
@@ -63,3 +61,4 @@ As for tmux plugins, you will need to manually fire up `tmux` and
 hit `prefix + U`.
 
 [tpm]: https://github.com/tmux-plugins/tpm
+[vim-plug]: https://github.com/junegunn/vim-plug

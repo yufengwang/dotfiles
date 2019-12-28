@@ -2,13 +2,18 @@
 #
 # A simple dotfiles manager.
 
-set -eu -o pipefail
+set -e -o pipefail
 
 NAME="dotfilez"
 HOME="$(echo ~)"
 ROOT_DIR="$HOME/.dotfiles"
 BIN_DIR="$ROOT_DIR/bin"
 SRC_DIR="$ROOT_DIR/dot"
+
+print_usage() {
+  echo "Usage: $NAME <command>"
+  echo "Try '$NAME help' for more info"
+}
 
 print_help() {
   echo "$NAME - A simple CLI for dotfile management"
@@ -19,11 +24,6 @@ print_help() {
   echo "    uninstall  -  unlink dotfiles"
   echo "    update     -  update submodules and plugins"
   echo "    help       -  display this help"
-}
-
-print_usage() {
-  echo "Usage: $NAME <command>"
-  echo "Try '$NAME help' for more info"
 }
 
 link_dotfiles() {
