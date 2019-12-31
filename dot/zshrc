@@ -14,7 +14,7 @@ zle -N edit-command-line
 ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
 
 # tab completion
-fpath=(~/.zsh/completions $fpath)
+fpath=(~/.zfunc $fpath)
 typeset -U fpath
 
 autoload -Uz compinit
@@ -55,8 +55,8 @@ alias ls='ls --color=auto --classify --group-directories-first'
 alias ll='ls --human-readable -l'
 alias la='ll --all'
 alias grep='grep --color=auto'
-alias xcopy='xsel --clipboard'
-alias xpaste='xsel --clipboard'
+alias pbcopy='xsel --clipboard'
+alias pbpaste='xsel --clipboard'
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
