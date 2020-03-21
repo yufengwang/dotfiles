@@ -97,6 +97,12 @@ let g:tagbar_type_rust = {
 \ }
 
 "
+" load built-in plugins
+"
+
+packadd! matchit
+
+"
 " plugins
 "
 
@@ -104,11 +110,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'ervandew/supertab'
-Plug '/usr/share/vim/vimfiles/plugin/fzf.vim', {'on': 'FZF'}
+Plug 'junegunn/fzf.vim', {'on': 'FZF'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-surround'
 Plug 'benmills/vimux'
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
