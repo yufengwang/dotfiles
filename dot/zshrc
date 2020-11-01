@@ -58,5 +58,10 @@ alias grep='grep --color=auto'
 alias pbcopy='xsel --clipboard'
 alias pbpaste='xsel --clipboard'
 
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+if which fzf > /dev/null; then
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+fi
+if which pyenv > /dev/null; then
+  eval "$(pyenv init -)"
+fi
