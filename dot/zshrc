@@ -39,6 +39,7 @@ export LC_COLLATE=C
 # environment variables
 export TERM=xterm-256color
 export EDITOR=$(which vim)
+export LESS='-i -R -F --mouse --wheel-lines=3'
 export PATH=$PATH:$HOME/bin:$HOME/.dotfiles/bin:$HOME/.cargo/bin
 typeset -U PATH
 
@@ -48,20 +49,25 @@ bindkey '^R' history-incremental-pattern-search-backward    # ctrl-r
 bindkey '^[[A' up-line-or-search                            # up-arrow
 bindkey '^[[B' down-line-or-search                          # down-arrow
 bindkey '^[[Z' reverse-menu-complete                        # shift-tab
-bindkey -M vicmd '^V' edit-command-line
+bindkey -M vicmd '^V' edit-command-line                     # ctrl-v
 
 # command aliases
 alias ls='ls --color=auto --classify --group-directories-first'
 alias ll='ls --human-readable -l'
 alias la='ll --all'
 alias grep='grep --color=auto'
-alias pbcopy='xsel --clipboard'
-alias pbpaste='xsel --clipboard'
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
 
-if which fzf > /dev/null; then
+if [[ -x "$(command -v fzf)" ]]; then
+  export FZF_DEFAULT_OPTS="--reverse --multi \
+    --bind=alt-up:preview-half-page-up \
+    --bind=alt-down:preview-half-page-down \
+    --bind=ctrl-]:toggle-preview"
   source /usr/share/fzf/key-bindings.zsh
   source /usr/share/fzf/completion.zsh
 fi
-if which pyenv > /dev/null; then
+
+if [[ -x "$(command -v pyenv)" ]]; then
   eval "$(pyenv init -)"
 fi
