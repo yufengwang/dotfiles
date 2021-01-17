@@ -46,6 +46,7 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 
 " gutentags config
 let g:gutentags_cache_dir = '~/.cache/gutentags'
+let g:gutentags_exclude_filetypes = ['text']
 
 " vimux config
 let g:VimuxHeight = '40'
@@ -110,7 +111,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'ervandew/supertab'
-Plug 'junegunn/fzf.vim', {'on': 'FZF'}
+Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'ludovicchabant/vim-gutentags'
@@ -219,6 +220,8 @@ nmap <leader>0 <plug>BufTabLine.Go(10)
 nnoremap j gj
 nnoremap k gk
 nnoremap <c-f> :FZF<cr>
+nnoremap <c-b> :Buffers<cr>
+nnoremap <c-m> :Tags<cr>
 inoremap <c-u> <esc>viw~ea
 vnoremap // y/<c-r>"<cr>
 vnoremap ch I#<esc>
