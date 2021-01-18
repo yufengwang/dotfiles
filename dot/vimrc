@@ -175,9 +175,9 @@ hi VertSplit        cterm=bold ctermfg=246 ctermbg=246
 
 " tab line
 hi TabLineSel cterm=none
-hi link BufTabLineCurrent TabLineSel
 hi BufTabLineFill    cterm=none ctermfg=246 ctermbg=246
-hi BufTabLineActive  cterm=none ctermfg=241 ctermbg=252
+hi BufTabLineCurrent cterm=none ctermfg=240 ctermbg=250
+hi BufTabLineActive  cterm=none ctermfg=250 ctermbg=236
 hi BufTabLineHidden  cterm=none ctermfg=250 ctermbg=240
 
 " completion menu
