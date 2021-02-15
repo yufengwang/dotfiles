@@ -1,64 +1,52 @@
-# ~/.dotfiles
+## ~/.dotfiles
 
-## Requirements
+### requirements
 
-You will need `curl`, `git`, and `bash` on your system to get up and running.
-And of course you should have installed the things these dotfiles relate to.
+* need `bash`, `curl`, and `git`
+* install `ctags` from package manager
 
-## dotfilez
+### `dotfilez`
 
-This is a simple script that you can use to update your dotfiles and plugins
-anywhere.
+a simple script to manage/update dotfiles and plugins
 
-## Install
+### install
 
-Just run this:
-
-```bash
-$ curl -sL https://raw.github.com/yufengwng/dotfiles/master/install.sh | sh
+```sh
+$ curl -sL https://raw.github.com/yufengwng/dotfiles/master/install.sh | bash
 ```
 
-Or if you prefer the more manual way:
+or the more manual way:
 
-``` bash
+```sh
 $ git clone git@github.com:yufengwng/dotfiles.git ~/.dotfiles
 $ ~/.dotfiles/install.sh
 ```
 
-A bit of manual work before you're ready to go:
+lastly, fire up `tmux` and hit `prefix + I` to [install tmux plugins][tpm].
 
-1. Fire up `tmux` and hit `prefix + I` to [install tmux plugins][tpm]
-2. Install `ctags` for `Tagbar` vim plugin via your distro's package manager
+### uninstall
 
-## Uninstall
-
-Just run the `dotfilez` manager:
-
-``` bash
+```sh
 $ dotfilez uninstall
 ```
 
-Remove the dotfiles directory if you're ready to lose configurations:
+then delete the dotfiles directory to completely remove:
 
-``` bash
+```sh
 $ rm -rf ~/.dotfiles
 ```
 
-## Update
-
-Vim plugins are managed by [vim-plug][]. It is installed on-the-fly by the
-install process, and automatically updated as part of `dotfilez`'s update
-process. The Tmux Plugin Manager (TPM) is being managed as a git submodule, and
-plugins are installed into `~/.dotfiles/config/tmux/plugins`.
-
-To update, simply invoke the `dotfilez` manager:
+### update
 
 ``` bash
 $ dotfilez update
 ```
 
-As for tmux plugins, you will need to manually fire up `tmux` and
-hit `prefix + U`.
+then manually fire up `tmux` and hit `prefix + U`.
+
+* vim plugins are managed by [vim-plug][plug]
+* Tmux Plugin Manager (TPM) is managed as a git submodule
+* TPM plugins are installed into `~/.dotfiles/dot/tmux/plugins`
 
 [tpm]: https://github.com/tmux-plugins/tpm
-[vim-plug]: https://github.com/junegunn/vim-plug
+[plug]: https://github.com/junegunn/vim-plug
