@@ -51,7 +51,7 @@ let g:gutentags_exclude_filetypes = ['text']
 " vimux config
 let g:VimuxHeight = '40'
 let g:VimuxUseNearest = 0
-let g:VimuxOrientation = 'h'
+let g:VimuxOrientation = 'v'
 let g:VimuxPromptString = 'vimux$ '
 
 " vim-racer config
@@ -163,7 +163,7 @@ augroup END
 "
 
 " vim 256 colors
-if $TERM == 'xterm-256color' || $TERM == 'screen-256color'
+if $TERM == 'xterm-256color' || $TERM == 'screen-256color' || $TERM == 'rxvt-unicode-256color'
   set t_Co=256
 endif
 
@@ -176,7 +176,7 @@ hi VertSplit        cterm=bold ctermfg=246 ctermbg=246
 " tab line
 hi TabLineSel cterm=none
 hi BufTabLineFill    cterm=none ctermfg=246 ctermbg=246
-hi BufTabLineCurrent cterm=none ctermfg=240 ctermbg=250
+hi BufTabLineCurrent cterm=bold ctermfg=236 ctermbg=14
 hi BufTabLineActive  cterm=none ctermfg=250 ctermbg=236
 hi BufTabLineHidden  cterm=none ctermfg=250 ctermbg=240
 
@@ -198,8 +198,6 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
-nnoremap <leader>sh :split<space>
-nnoremap <leader>sv :vsplit<space>
 
 " buffer navigation
 nnoremap <c-n> :bnext<cr>
@@ -220,19 +218,24 @@ nmap <leader>0 <plug>BufTabLine.Go(10)
 nnoremap j gj
 nnoremap k gk
 nnoremap <c-f> :FZF<cr>
+nnoremap <c-s> :Tags<cr>
 nnoremap <c-b> :Buffers<cr>
-nnoremap <c-m> :Tags<cr>
+
 inoremap <c-u> <esc>viw~ea
+
 vnoremap // y/<c-r>"<cr>
-vnoremap ch I#<esc>
-vnoremap c/ I//<esc>
+vnoremap ch I# <esc>
+vnoremap c/ I// <esc>
+vnoremap c- I-- <esc>
 
 " leader mappings
 nnoremap <leader>a ggvG$
 nnoremap <leader>q :quit<cr>
 nnoremap <leader>w :write<cr>
+nnoremap <leader>c :nohlsearch<cr>
 nnoremap <leader>e :edit <c-r>=expand('%:p:h')<cr>/
-nnoremap <leader>hc :nohlsearch<cr>
+nnoremap <leader>s :split<space>
+nnoremap <leader>v :vsplit<space>
 
 " rust lookup mappings
 nmap <leader>rd <plug>(rust-doc)
@@ -249,19 +252,15 @@ nnoremap <leader>xz :VimuxZoomRunner<cr>
 nnoremap <leader>xc :VimuxClearRunnerHistory<cr>
 nnoremap <leader>xq :VimuxCloseRunner<cr>
 
-" vim hot-reload
-nnoremap <leader>ve :edit $MYVIMRC<cr>
-nnoremap <leader>vs :source $MYVIMRC<cr>
-
 " fn mappings
 nnoremap <F5> :edit<cr>
 nnoremap <F6> :call MouseToggle()<cr>
-nnoremap <F7> :NERDTreeToggle<cr>
-nnoremap <F8> :TagbarToggle<cr>
+nnoremap <F7> :set paste!<cr>
+nnoremap <F8> :set spell!<cr>
 nnoremap <F9> :lopen<cr>
 nnoremap <F10> :lclose<cr>
-nnoremap <F11> :set paste!<cr>
-nnoremap <F12> :set spell!<cr>
+nnoremap <F11> :NERDTreeToggle<cr>
+nnoremap <F12> :TagbarToggle<cr>
 
 "
 " functions
