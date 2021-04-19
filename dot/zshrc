@@ -56,8 +56,9 @@ alias ls='ls --color=auto --classify --group-directories-first'
 alias ll='ls --human-readable -l'
 alias la='ll --all'
 alias grep='grep --color=auto'
-alias pbcopy='xsel --clipboard --input'
-alias pbpaste='xsel --clipboard --output'
+alias open='xdg-open'
+alias pbcopy='wl-copy'
+alias pbpaste='wl-paste'
 
 if [[ -x "$(command -v fzf)" ]]; then
   export FZF_DEFAULT_OPTS="--reverse --multi \
