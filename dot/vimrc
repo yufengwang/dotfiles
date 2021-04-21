@@ -13,25 +13,27 @@ let g:lightline = {
 \   'active': {
 \     'left': [
 \       ['mode', 'paste', 'spell'],
-\       ['readonly', 'filename', 'modified']
+\       ['readonly', 'filename', 'modified'],
+\       ['tags']
 \     ],
 \   },
 \   'component': {
 \     'paste': '%{&paste ? "¶" : ""}',
 \     'spell': '%{&spell ? "⚐ " . &spelllang : ""}',
+\     'tags': '%{gutentags#statusline("♺ ")}',
 \   },
 \   'component_function': {
-\     'fileencoding': 'LightlineFileencoding',
-\     'fileformat': 'LightlineFileformat',
+\     'fileencoding': 'LightlineFileEncoding',
+\     'fileformat': 'LightlineFileFormat',
 \   },
 \ }
 
-function! LightlineFileencoding()
+function! LightlineFileEncoding()
   let l:enc = &fenc !=# '' ? &fenc : &enc
   return l:enc ==# 'utf-8' ? '' : l:enc
 endfunction
 
-function! LightlineFileformat()
+function! LightlineFileFormat()
   return &ff ==# 'unix' ? '' : &ff
 endfunction
 
@@ -40,26 +42,51 @@ let g:buftabline_show = 1
 let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
 
-" supertab config
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabClosePreviewOnPopupClose = 1
-
 " gutentags config
 let g:gutentags_cache_dir = '~/.cache/gutentags'
 let g:gutentags_exclude_filetypes = ['text']
+augroup gutentags_statusline
+  autocmd!
+  autocmd User GutentagsUpdating call lightline#update()
+  autocmd User GutentagsUpdated call lightline#update()
+augroup END
 
 " vimux config
-let g:VimuxHeight = '40'
+let g:VimuxHeight = '30'
 let g:VimuxUseNearest = 0
 let g:VimuxOrientation = 'v'
 let g:VimuxPromptString = 'vimux$ '
 
-" vim-racer config
-let g:racer_experimental_completer = 1
-augroup racer_disable_preview
+" lsp/supertab/asyncomplete config
+let g:asyncomplete_auto_popup = 0
+let g:SuperTabClosePreviewOnPopupClose = 1
+let g:SuperTabDefaultCompletionType = 'context'
+let g:lsp_document_code_action_signs_enabled = 0
+autocmd Filetype *
+  \ if &omnifunc ==# '' |
+  \ setlocal omnifunc=syntaxcomplete#Complete |
+  \ endif
+augroup lsp_install
   autocmd!
-  autocmd filetype rust setlocal completeopt-=preview
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+" nerdcommenter config
+let g:NERDSpaceDelims = 1
+
+" nerdtree config
+"" Exit vim if nerdtree is the only window left.
+autocmd BufEnter *
+  \ if tabpagenr('$') == 1 && winnr('$') == 1
+  \ && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+  \ quit | endif
+"" Prevent other buffers from replacing nerdtree.
+autocmd BufEnter *
+  \ if bufname('#') =~ 'NERD_tree_\d\+'
+  \ && bufname('%') !~ 'NERD_tree_\d\+'
+  \ && winnr('$') > 1 |
+  \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf |
+  \ endif
 
 " tagbar config
 let g:rust_use_custom_ctags_defs = 1
@@ -110,19 +137,23 @@ packadd! matchit
 call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
-Plug 'ervandew/supertab'
 Plug 'junegunn/fzf.vim'
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
+Plug 'preservim/vimux'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-surround'
-Plug 'benmills/vimux'
-Plug 'racer-rust/vim-racer', {'for': 'rust'}
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'cespare/vim-toml'
 Plug 'jrozner/vim-antlr'
 Plug 'ap/vim-css-color'
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'ervandew/supertab'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 call plug#end()
 
 "
@@ -137,6 +168,7 @@ set mouse=a             " start with mouse enabled
 set noshowmode          " hide mode line for insert/visual/replace
 set number              " show line numbering
 set scrolloff=5         " keep lines above and below cursor
+set showcmd             " show partial command and selection counts
 set spelllang=en_us     " set spelling language to English
 set title               " change terminal title
 
@@ -221,13 +253,10 @@ nnoremap k gk
 nnoremap <c-f> :FZF<cr>
 nnoremap <c-s> :Tags<cr>
 nnoremap <c-b> :Buffers<cr>
-
+"" insert mappings
 inoremap <c-u> <esc>viw~ea
-
+"" visual mappings
 vnoremap // y/<c-r>"<cr>
-vnoremap ch I# <esc>
-vnoremap c/ I// <esc>
-vnoremap c- I-- <esc>
 
 " leader mappings
 nnoremap <leader>a ggvG$
@@ -237,12 +266,7 @@ nnoremap <leader>c :nohlsearch<cr>
 nnoremap <leader>e :edit <c-r>=expand('%:p:h')<cr>/
 nnoremap <leader>s :split<space>
 nnoremap <leader>v :vsplit<space>
-
-" rust lookup mappings
-nmap <leader>rd <plug>(rust-doc)
-nmap <leader>rf <plug>(rust-def)
-nmap <leader>rs <plug>(rust-def-split)
-nmap <leader>rv <plug>(rust-def-vertical)
+nnoremap <leader>f :Rg<space>
 
 " vimux mappings
 nnoremap <leader>xv :VimuxPromptCommand<cr>
@@ -250,24 +274,24 @@ nnoremap <leader>xl :VimuxRunLastCommand<cr>
 nnoremap <leader>xk :VimuxInterruptRunner<cr>
 nnoremap <leader>xi :VimuxInspectRunner<cr>
 nnoremap <leader>xz :VimuxZoomRunner<cr>
-nnoremap <leader>xc :VimuxClearRunnerHistory<cr>
+nnoremap <leader>xc :VimuxClearTerminalScreen<cr>:VimuxClearRunnerHistory<cr>
 nnoremap <leader>xq :VimuxCloseRunner<cr>
 
 " fn mappings
 nnoremap <F5> :edit<cr>
-nnoremap <F6> :call MouseToggle()<cr>
+nnoremap <F6> :call ToggleMouse()<cr>
 nnoremap <F7> :set paste!<cr>
 nnoremap <F8> :set spell!<cr>
-nnoremap <F9> :lopen<cr>
-nnoremap <F10> :lclose<cr>
-nnoremap <F11> :NERDTreeToggle<cr>
+nnoremap <F9> :NERDTreeToggle<cr>
+nnoremap <F10> :call ToggleLocationList()<cr>
+nnoremap <F11> :call ToggleQuickFixList()<cr>
 nnoremap <F12> :TagbarToggle<cr>
 
 "
 " functions
 "
 
-function! MouseToggle()
+function! ToggleMouse()
   if &mouse ==# ''
     set mouse=a
     echomsg 'mouse on'
@@ -275,4 +299,43 @@ function! MouseToggle()
     set mouse=
     echomsg 'mouse off'
   endif
+endfunction
+
+function! ToggleLocationList()
+  if empty(filter(getwininfo(), 'v:val.loclist'))
+    lopen
+  else
+    lclose
+  endif
+endfunction
+
+function! ToggleQuickFixList()
+  if empty(filter(getwininfo(), 'v:val.quickfix'))
+    copen
+  else
+    cclose
+  endif
+endfunction
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  if exists('+tagfunc')
+    setlocal tagfunc=lsp#tagfunc
+  endif
+
+  nmap <leader>gg <plug>(lsp-document-diagnostics)
+  nmap <leader>gd <plug>(lsp-definition)
+  nmap <leader>gi <plug>(lsp-implementation)
+  nmap <leader>gt <plug>(lsp-type-definition)
+  nmap <leader>ga <plug>(lsp-code-action)
+  nmap <leader>gr <plug>(lsp-references)
+
+  nmap <leader>rd <plug>(lsp-peek-definition)
+  nmap <leader>ri <plug>(lsp-peek-implementation)
+  nmap <leader>rt <plug>(lsp-peek-type-definition)
+  nmap <leader>rh <plug>(lsp-hover)
+  nmap <leader>rn <plug>(lsp-rename)
+
+  inoremap <buffer> <expr><c-u> lsp#scroll(-4)
+  inoremap <buffer> <expr><c-d> lsp#scroll(+4)
 endfunction
