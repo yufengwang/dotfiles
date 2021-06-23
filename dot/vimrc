@@ -9,7 +9,6 @@ set nocompatible
 
 " lightline config
 let g:lightline = {
-\   'mode_map': {'n': 'N', 'i': 'I', 'v': 'V', 'R': 'R'},
 \   'active': {
 \     'left': [
 \       ['mode', 'paste', 'spell'],
@@ -43,19 +42,12 @@ let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
 
 " gutentags config
-let g:gutentags_cache_dir = '~/.cache/gutentags'
-let g:gutentags_exclude_filetypes = ['text']
+let g:gutentags_cache_dir = '~/.cache/vim/ctags'
 augroup gutentags_statusline
   autocmd!
   autocmd User GutentagsUpdating call lightline#update()
   autocmd User GutentagsUpdated call lightline#update()
 augroup END
-
-" vimux config
-let g:VimuxHeight = '30'
-let g:VimuxUseNearest = 0
-let g:VimuxOrientation = 'v'
-let g:VimuxPromptString = 'vimux$ '
 
 " lsp/supertab/asyncomplete config
 let g:asyncomplete_auto_popup = 0
@@ -88,42 +80,6 @@ autocmd BufEnter *
   \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf |
   \ endif
 
-" tagbar config
-let g:rust_use_custom_ctags_defs = 1
-let g:tagbar_type_rust = {
-  \ 'ctagsbin': 'ctags',
-  \ 'ctagstype': 'rust',
-  \ 'kinds' : [
-      \ 'n:modules',
-      \ 's:structures:1',
-      \ 'i:interfaces',
-      \ 'c:implementations',
-      \ 'f:functions:1',
-      \ 'g:enumerations:1',
-      \ 't:type aliases:1:0',
-      \ 'v:constants:1:0',
-      \ 'M:macros:1',
-      \ 'm:fields:1:0',
-      \ 'e:enum variants:1:0',
-      \ 'P:methods:1',
-  \ ],
-  \ 'sro': '::',
-  \ 'kind2scope' : {
-      \ 'n': 'module',
-      \ 's': 'struct',
-      \ 'i': 'interface',
-      \ 'c': 'implementation',
-      \ 'f': 'function',
-      \ 'g': 'enum',
-      \ 't': 'typedef',
-      \ 'v': 'variable',
-      \ 'M': 'macro',
-      \ 'm': 'field',
-      \ 'e': 'enumerator',
-      \ 'P': 'method',
-  \ },
-\ }
-
 "
 " load built-in plugins
 "
@@ -141,12 +97,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
-Plug 'preservim/vimux'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-surround'
 Plug 'cespare/vim-toml'
-Plug 'jrozner/vim-antlr'
 Plug 'ap/vim-css-color'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'ervandew/supertab'
@@ -235,7 +189,7 @@ nnoremap <c-l> <c-w>l
 " buffer navigation
 nnoremap <c-n> :bnext<cr>
 nnoremap <c-p> :bprevious<cr>
-nnoremap <c-x> :bprevious \| bdelete #<cr>
+nnoremap <c-x> :bprevious<bar>bdelete #<cr>
 nmap <leader>1 <plug>BufTabLine.Go(1)
 nmap <leader>2 <plug>BufTabLine.Go(2)
 nmap <leader>3 <plug>BufTabLine.Go(3)
@@ -253,6 +207,7 @@ nnoremap k gk
 nnoremap <c-f> :FZF<cr>
 nnoremap <c-s> :Tags<cr>
 nnoremap <c-b> :Buffers<cr>
+nnoremap <c-c> :cclose<cr>:lclose<cr>
 "" insert mappings
 inoremap <c-u> <esc>viw~ea
 "" visual mappings
@@ -266,16 +221,7 @@ nnoremap <leader>c :nohlsearch<cr>
 nnoremap <leader>e :edit <c-r>=expand('%:p:h')<cr>/
 nnoremap <leader>s :split<space>
 nnoremap <leader>v :vsplit<space>
-nnoremap <leader>f :Rg<space>
-
-" vimux mappings
-nnoremap <leader>xv :VimuxPromptCommand<cr>
-nnoremap <leader>xl :VimuxRunLastCommand<cr>
-nnoremap <leader>xk :VimuxInterruptRunner<cr>
-nnoremap <leader>xi :VimuxInspectRunner<cr>
-nnoremap <leader>xz :VimuxZoomRunner<cr>
-nnoremap <leader>xc :VimuxClearTerminalScreen<cr>:VimuxClearRunnerHistory<cr>
-nnoremap <leader>xq :VimuxCloseRunner<cr>
+nnoremap <leader>f :Rg<cr>
 
 " fn mappings
 nnoremap <F5> :edit<cr>

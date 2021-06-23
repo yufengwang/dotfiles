@@ -12,7 +12,7 @@ a simple script to manage/update dotfiles and plugins
 ### install
 
 ```sh
-$ curl -sL https://raw.github.com/yufengwng/dotfiles/master/install.sh | bash
+$ curl -sL https://raw.github.com/yufengwng/dotfiles/main/install.sh | bash
 ```
 
 or the more manual way:
@@ -44,7 +44,7 @@ $ dotfilez update
 
 then manually fire up `tmux` and hit `prefix + U`.
 
-* vim plugins are managed by [vim-plug][plug]
+* (neo)vim plugins are managed by [vim-plug][plug]
 * Tmux Plugin Manager (TPM) is managed as a git submodule
 * TPM plugins are installed into `~/.dotfiles/dot/tmux/plugins`
 

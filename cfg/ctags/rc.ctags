@@ -1,0 +1,3 @@
+--tag-relative=yes
+--fields=+ailmnKSz
+--exclude=target

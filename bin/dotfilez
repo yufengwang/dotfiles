@@ -8,7 +8,8 @@ NAME="dotfilez"
 HOME="$(echo ~)"
 ROOT_DIR="$HOME/.dotfiles"
 BIN_DIR="$ROOT_DIR/bin"
-SRC_DIR="$ROOT_DIR/dot"
+DOT_DIR="$ROOT_DIR/dot"
+CFG_DIR="$ROOT_DIR/cfg"
 
 print_usage() {
   echo "Usage: $NAME <command>"
@@ -27,34 +28,55 @@ print_help() {
 }
 
 link_dotfiles() {
-  cd "$SRC_DIR"
-  printf '> symlinking dotfiles to %s\n' "$HOME"
+  cd "$DOT_DIR"
+  echo "> symlinking dotfiles to $HOME"
 
   for match in ./*; do
     # grab only the filename
     local file="${match:2}"
-
-    local src_file="$SRC_DIR/$file"
+    local src_file="$DOT_DIR/$file"
     local dest_file="$HOME/.$file"
 
     if [[ -L "$dest_file" ]]; then
       rm -rf "$dest_file"
       ln -s "$src_file" "$dest_file"
-      printf '%s: symlink replaced\n' ".$file"
+      echo "~/.$file: symlink replaced"
     elif [[ -e "$dest_file" ]]; then
       mv "$dest_file" "$dest_file.bkup"
       ln -s "$src_file" "$dest_file"
-      printf '%s: backed up to %s\n' ".$file" ".$file.bkup"
+      echo "~/.$file: backed up to ~/.$file.bkup"
     else
       ln -s "$src_file" "$dest_file"
-      printf '%s: symlinked\n' ".$file"
+      echo "~/.$file: symlinked"
+    fi
+  done
+
+  cd "$CFG_DIR"
+  echo "> symlinking configs to $HOME/.config"
+
+  for match in ./*; do
+    local file="${match:2}"
+    local src_file="$CFG_DIR/$file"
+    local dest_file="$HOME/.config/$file"
+
+    if [[ -L "$dest_file" ]]; then
+      rm -rf "$dest_file"
+      ln -sT "$src_file" "$dest_file"
+      echo "~/.config/$file: symlink replaced"
+    elif [[ -e "$dest_file" ]]; then
+      mv "$dest_file" "$dest_file.bkup"
+      ln -sT "$src_file" "$dest_file"
+      echo "~/.config/$file: backed up to ~/.config/$file.bkup"
+    else
+      ln -sT "$src_file" "$dest_file"
+      echo "~/.config/$file: symlinked"
     fi
   done
 }
 
 unlink_dotfiles() {
-  cd "$SRC_DIR"
-  printf '> unlinking dotfiles from %s\n' "$HOME"
+  cd "$DOT_DIR"
+  echo "> unlinking dotfiles from $HOME"
 
   for match in ./*; do
     # grab only the filename
@@ -63,39 +85,57 @@ unlink_dotfiles() {
 
     if [[ -e "$dest_file" ]] && [[ -L "$dest_file" ]]; then
       rm -rf "$dest_file"
-      printf '%s: unlinked\n' ".$file"
+      echo "~/.$file: unlinked"
+    fi
+  done
+
+  cd "$CFG_DIR"
+  echo "> unlinking configs from $HOME/.config"
+
+  for match in ./*; do
+    local file="${match:2}"
+    local dest_file="$HOME/.config/$file"
+
+    if [[ -e "$dest_file" ]] && [[ -L "$dest_file" ]]; then
+      rm -rf "$dest_file"
+      echo "~/.config/$file: unlinked"
     fi
   done
 }
 
 setup_submodules() {
   cd "$ROOT_DIR"
-  printf '> setting up submodules\n'
+  echo "> setting up submodules"
   git submodule init
   git submodule update
 }
 
 update_submodules() {
   cd "$ROOT_DIR"
-  printf '> updating submodules\n'
+  echo "> updating submodules"
   git submodule update --init
 }
 
 install_vim_plugins() {
-  printf '> installing vim plugins\n'
-  vim +PlugInstall
+  echo "> installing (neo)vim plugins"
+  for editor in vim nvim; do
+    $editor +PlugInstall
+  done
 }
 
 update_vim_plugins() {
-  printf '> updating vim plugins\n'
-  vim +PlugUpgrade
-  vim +PlugUpdate
-  vim +PlugClean
+  echo "> updating (neo)vim plugins"
+  for editor in vim nvim; do
+    $editor +PlugUpgrade
+    $editor +PlugUpdate
+    $editor +PlugClean
+  done
 }
 
 download_vim_plug() {
-  curl -sfLo ~/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  local plug_url='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  curl -sfLo ~/.vim/autoload/plug.vim --create-dirs "$plug_url"
+  curl -sfLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs "$plug_url"
 }
 
 run_install() {

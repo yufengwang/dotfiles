@@ -1,4 +1,3 @@
-unsetopt beep
 setopt interactive_comments
 setopt auto_cd complete_aliases extended_glob
 setopt append_history hist_ignore_dups hist_ignore_space
@@ -11,22 +10,16 @@ SAVEHIST=10000
 # command line editing
 autoload -Uz edit-command-line
 zle -N edit-command-line
-
 ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
 
 # tab completion
+autoload -Uz compinit; compinit
+zstyle ':completion:*' menu select
 fpath=(~/.zfunc $fpath)
 typeset -U fpath
 
-autoload -Uz compinit
-compinit
-
-zstyle ':completion:*' menu select
-
 # shell prompt
-autoload -Uz promptinit
-promptinit
-
+autoload -Uz promptinit; promptinit
 if [[ -n "$SSH_CONNECTION" ]]; then
   PROMPT='%B%n@%m|%2~%#%b '
 else
@@ -38,8 +31,7 @@ eval $(dircolors)
 export LC_COLLATE=C
 
 # environment variables
-export TERM=xterm-256color
-export EDITOR=$(which vim)
+export EDITOR=$(which nvim)
 export LESS='-i -R -F --mouse --wheel-lines=3'
 export PATH=$PATH:$HOME/bin:$HOME/.dotfiles/bin:$HOME/.cargo/bin
 typeset -U PATH
@@ -56,8 +48,8 @@ bindkey -M vicmd '^V' edit-command-line                     # ctrl-v
 alias ls='ls --color=auto --classify --group-directories-first'
 alias ll='ls --human-readable -l'
 alias la='ll --all'
+alias edit="$EDITOR"
 alias grep='grep --color=auto'
-alias open='xdg-open'
 alias pbcopy='wl-copy'
 alias pbpaste='wl-paste'
 
@@ -73,3 +65,7 @@ fi
 if [[ -x "$(command -v pyenv)" ]]; then
   eval "$(pyenv init -)"
 fi
+
+open() {
+  xdg-open "$@" &!
+}
