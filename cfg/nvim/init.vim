@@ -32,7 +32,7 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 let g:SuperTabDefaultCompletionType = 'context'
 
 Plug 'nvim-lua/completion-nvim'
-set completeopt=menu,noinsert
+set completeopt=menuone
 let g:completion_enable_auto_popup = 0
 
 Plug 'ludovicchabant/vim-gutentags'
@@ -62,6 +62,10 @@ let g:netrw_liststyle = 3     " tree listing (key: i)
 let g:netrw_winsize = 20      " fixed width
 augroup init_netrw | autocmd!
   autocmd filetype netrw silent! unmap <buffer> <c-l>
+  autocmd filetype netrw silent! unmap <buffer> <leftmouse>
+  autocmd filetype netrw nmap <buffer> <2-leftmouse> <cr>
+  autocmd filetype netrw nmap <buffer> <middlemouse> gn
+  autocmd filetype netrw nmap <buffer> o <cr>
 augroup END
 
 set expandtab               " use spaces instead of tabs
@@ -152,5 +156,9 @@ inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 
 vnoremap // y/<c-r>"<cr>
+
+augroup init | autocmd!
+  autocmd filetype qf wincmd J
+augroup END
 
 lua require('init')

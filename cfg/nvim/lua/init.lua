@@ -9,6 +9,8 @@ end
 local function lsp_on_attach(client, bufnr)
   require('completion').on_attach()
   local opts = { noremap=true, silent=true }
+  set_buf_map('n', '<leader>gg', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  set_buf_map('n', '<leader>ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   set_buf_map('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
   set_buf_map('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
   set_buf_map('n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
@@ -17,7 +19,6 @@ local function lsp_on_attach(client, bufnr)
   set_buf_map('n', '<leader>gH', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
   set_buf_map('n', '<leader>gh', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
   set_buf_map('n', '<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-  set_buf_map('n', '<leader>ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   set_buf_map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
   set_buf_map("n", "<leader>rf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   set_buf_map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
@@ -26,6 +27,8 @@ local function lsp_on_attach(client, bufnr)
 end
 
 require('lspconfig').rust_analyzer.setup { on_attach = lsp_on_attach }
+require('lspconfig').sumneko_lua.setup { on_attach = lsp_on_attach }
+require('lspconfig').clangd.setup { on_attach = lsp_on_attach }
 
 local ts_actions = require('telescope.actions')
 require('telescope').setup {
