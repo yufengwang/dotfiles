@@ -32,8 +32,9 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 let g:SuperTabDefaultCompletionType = 'context'
 
 Plug 'nvim-lua/completion-nvim'
-set completeopt=menuone
+set completeopt=menuone,noselect
 let g:completion_enable_auto_popup = 0
+let g:completion_sorting = "alphabet"
 
 Plug 'ludovicchabant/vim-gutentags'
 let g:gutentags_cache_dir = '~/.cache/nvim/ctags'
@@ -75,7 +76,6 @@ set mouse=a                 " enable mouse for all modes
 set noshowmode              " hide current mode line
 set number                  " show line numbering
 set scrolloff=5             " lines above/below cursor
-set shortmess+=c            " avoid completion short messages
 set sidescrolloff=5         " columns to keep when no wrap
 set smartcase               " case sensitive if contains uppercase
 set spelllang=en_us         " set spelling language
@@ -161,4 +161,4 @@ augroup init | autocmd!
   autocmd filetype qf wincmd J
 augroup END
 
-lua require('init')
+luafile ~/.config/nvim/lua/config.lua

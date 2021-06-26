@@ -6,8 +6,11 @@ local function set_buf_opt(...)
   vim.api.nvim_buf_set_option(bufnr, ...)
 end
 
-local function lsp_on_attach(client, bufnr)
+local function lsp_on_attach()
   require('completion').on_attach()
+  set_buf_map('i', '<tab>', '<plug>(completion_smart_tab)', {})
+  set_buf_map('i', '<s-tab>', '<plug>(completion_smart_s_tab)', {})
+
   local opts = { noremap=true, silent=true }
   set_buf_map('n', '<leader>gg', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   set_buf_map('n', '<leader>ge', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
@@ -23,12 +26,23 @@ local function lsp_on_attach(client, bufnr)
   set_buf_map("n", "<leader>rf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   set_buf_map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   set_buf_map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+
   set_buf_opt('omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
 require('lspconfig').rust_analyzer.setup { on_attach = lsp_on_attach }
-require('lspconfig').sumneko_lua.setup { on_attach = lsp_on_attach }
 require('lspconfig').clangd.setup { on_attach = lsp_on_attach }
+require('lspconfig').sumneko_lua.setup {
+  cmd = {'/usr/bin/lua-language-server'},
+  on_attach = lsp_on_attach,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {'vim', 'bufnr'},
+      }
+    }
+  }
+}
 
 local ts_actions = require('telescope.actions')
 require('telescope').setup {
