@@ -1,46 +1,8 @@
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'itchyny/lightline.vim'
-let g:lightline = {
-\   'mode_map': {'n': 'N', 'i': 'I', 'v': 'V', 'R': 'R'},
-\   'active': {
-\     'left': [['mode', 'spell'], ['readonly', 'filename', 'modified']],
-\   },
-\   'component': {
-\     'spell': '%{&spell ? "⚐ " . &spelllang : ""}',
-\   },
-\   'component_function': {
-\     'fileencoding': 'LightlineFileEncoding',
-\     'fileformat': 'LightlineFileFormat',
-\   },
-\ }
-function! LightlineFileEncoding()
-  let l:enc = &fenc !=# '' ? &fenc : &enc
-  return l:enc ==# 'utf-8' ? '' : l:enc
-endfunction
-function! LightlineFileFormat()
-  return &ff ==# 'unix' ? '' : &ff
-endfunction
-
-Plug 'ap/vim-buftabline'
-let g:buftabline_indicators = 1
-let g:buftabline_numbers = 2
-let g:buftabline_show = 1
-
-Plug 'ervandew/supertab'
-let g:SuperTabClosePreviewOnPopupClose = 1
-let g:SuperTabDefaultCompletionType = 'context'
-
-Plug 'nvim-lua/completion-nvim'
-set completeopt=menuone,noselect
-let g:completion_enable_auto_popup = 0
-let g:completion_sorting = "alphabet"
-
-Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_cache_dir = '~/.cache/nvim/ctags'
-command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')
-
+Plug 'hoob3rt/lualine.nvim'
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
+Plug 'npxbr/glow.nvim', {'branch': 'main'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -53,21 +15,41 @@ Plug 'ap/vim-css-color'
 Plug 'machakann/vim-sandwich'
 Plug 'cespare/vim-toml'
 
-call plug#end()
+Plug 'kyazdani42/nvim-tree.lua'
+let g:nvim_tree_add_trailing = 1
+let g:nvim_tree_auto_close = 1
+let g:nvim_tree_group_empty = 1
+let g:nvim_tree_show_icons = {
+\ 'git': 0,
+\ 'folders': 0,
+\ 'files': 0,
+\ 'folder_arrows': 0,
+\ }
 
-let g:netrw_alto = 1          " use below splitting
-let g:netrw_altv = 1          " use right splitting
-let g:netrw_banner = 0        " no banner (key: I)
-let g:netrw_browse_split = 4  " open in previous window
-let g:netrw_liststyle = 3     " tree listing (key: i)
-let g:netrw_winsize = 20      " fixed width
-augroup init_netrw | autocmd!
-  autocmd filetype netrw silent! unmap <buffer> <c-l>
-  autocmd filetype netrw silent! unmap <buffer> <leftmouse>
-  autocmd filetype netrw nmap <buffer> <2-leftmouse> <cr>
-  autocmd filetype netrw nmap <buffer> <middlemouse> gn
-  autocmd filetype netrw nmap <buffer> o <cr>
-augroup END
+Plug 'ap/vim-buftabline'
+let g:buftabline_indicators = 1
+let g:buftabline_numbers = 2
+let g:buftabline_show = 1
+
+Plug 'ervandew/supertab'
+let g:SuperTabClosePreviewOnPopupClose = 1
+let g:SuperTabDefaultCompletionType = 'context'
+
+Plug 'nvim-lua/completion-nvim'
+set completeopt=menuone
+let g:completion_enable_auto_popup = 0
+let g:completion_sorting = "alphabet"
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=expr
+set foldlevel=9
+
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_cache_dir = '~/.cache/nvim/ctags'
+command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')
+
+call plug#end()
 
 set expandtab               " use spaces instead of tabs
 set hidden                  " hide buffers instead of closing
@@ -134,8 +116,10 @@ nnoremap <leader>ft :Telescope file_browser<cr>
 nnoremap <leader>fm :Maps<cr>
 nnoremap <F5> :edit<cr>
 nnoremap <F6> :set spell!<cr>
-nnoremap <F7> :Lexplore<cr>
-nnoremap <F8> :TagbarToggle<cr>
+nnoremap <F7> :Glow<cr>
+nnoremap <F8> :FoldToggle<cr>
+nnoremap <F9> :NvimTreeToggle<cr>
+nnoremap <F12> :TagbarToggle<cr>
 nmap <leader>1 <plug>BufTabLine.Go(1)
 nmap <leader>2 <plug>BufTabLine.Go(2)
 nmap <leader>3 <plug>BufTabLine.Go(3)
@@ -157,8 +141,17 @@ inoremap <c-w> <c-g>u<c-w>
 
 vnoremap // y/<c-r>"<cr>
 
+function! s:FoldToggle()
+  if &foldcolumn ==# '0'
+    set foldcolumn=auto:3
+  else
+    set foldcolumn=0
+  endif
+endfunction
+command! -nargs=0 FoldToggle call s:FoldToggle()
+
+lua require('config')
+
 augroup init | autocmd!
   autocmd filetype qf wincmd J
 augroup END
-
-luafile ~/.config/nvim/lua/config.lua

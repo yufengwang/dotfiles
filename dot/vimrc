@@ -21,20 +21,7 @@ let g:lightline = {
 \     'spell': '%{&spell ? "⚐ " . &spelllang : ""}',
 \     'tags': '%{gutentags#statusline("♺ ")}',
 \   },
-\   'component_function': {
-\     'fileencoding': 'LightlineFileEncoding',
-\     'fileformat': 'LightlineFileFormat',
-\   },
 \ }
-
-function! LightlineFileEncoding()
-  let l:enc = &fenc !=# '' ? &fenc : &enc
-  return l:enc ==# 'utf-8' ? '' : l:enc
-endfunction
-
-function! LightlineFileFormat()
-  return &ff ==# 'unix' ? '' : &ff
-endfunction
 
 " buftabline config
 let g:buftabline_show = 1

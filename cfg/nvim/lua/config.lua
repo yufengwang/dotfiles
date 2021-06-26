@@ -44,17 +44,55 @@ require('lspconfig').sumneko_lua.setup {
   }
 }
 
-local ts_actions = require('telescope.actions')
+local tl_act = require('telescope.actions')
 require('telescope').setup {
   defaults = {
     mappings = {
       i = {
-        ["<esc>"] = ts_actions.close,
-        ["<c-j>"] = ts_actions.move_selection_next,
-        ["<c-k>"] = ts_actions.move_selection_previous,
+        ["<esc>"] = tl_act.close,
+        ["<c-j>"] = tl_act.move_selection_next,
+        ["<c-k>"] = tl_act.move_selection_previous,
       },
     },
     prompt_position = "top",
     sorting_strategy = "ascending",
   }
+}
+
+require('nvim-treesitter.configs').setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
+  },
+}
+
+local lline_mode_map = {
+  ['c'] = ' ',
+  ['V'] = 'L',
+  [''] = 'B',
+}
+
+local function lline_mode()
+  local code = vim.api.nvim_get_mode().mode
+  local mode = lline_mode_map[code]
+  if mode == nil then
+    return code
+  else
+    return mode
+  end
+end
+
+require('lualine').setup {
+  options = {
+    theme = 'ayu_mirage',
+    icons_enabled = false,
+    section_separators = '',
+    component_separators = '',
+  },
+  sections = {
+    lualine_a = {lline_mode},
+  },
 }
