@@ -1,6 +1,6 @@
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'hoob3rt/lualine.nvim'
+Plug 'yufengwng/lualine.nvim'
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
 Plug 'npxbr/glow.nvim', {'branch': 'main'}
 Plug 'neovim/nvim-lspconfig'

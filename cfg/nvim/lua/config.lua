@@ -88,6 +88,7 @@ end
 require('lualine').setup {
   options = {
     theme = 'ayu_mirage',
+    theme_async = false,
     icons_enabled = false,
     section_separators = '',
     component_separators = '',
