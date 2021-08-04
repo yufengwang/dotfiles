@@ -38,7 +38,6 @@ let g:SuperTabDefaultCompletionType = 'context'
 Plug 'nvim-lua/completion-nvim'
 set completeopt=menuone
 let g:completion_enable_auto_popup = 0
-let g:completion_sorting = "alphabet"
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 set foldexpr=nvim_treesitter#foldexpr()

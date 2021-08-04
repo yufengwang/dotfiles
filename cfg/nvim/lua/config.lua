@@ -54,7 +54,9 @@ require('telescope').setup {
         ["<c-k>"] = tl_act.move_selection_previous,
       },
     },
-    prompt_position = "top",
+    layout_config = {
+      prompt_position = "top",
+    },
     sorting_strategy = "ascending",
   }
 }

@@ -31,3 +31,6 @@
   undo = checkout
   unstage = reset HEAD --
   gr = grep --break --heading --line-number
+
+[init]
+  defaultBranch = main
