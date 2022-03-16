@@ -32,6 +32,7 @@ end
 
 require('lspconfig').rust_analyzer.setup { on_attach = lsp_on_attach }
 require('lspconfig').clangd.setup { on_attach = lsp_on_attach }
+require('lspconfig').pylsp.setup { on_attach = lsp_on_attach }
 require('lspconfig').sumneko_lua.setup {
   cmd = {'/usr/bin/lua-language-server'},
   on_attach = lsp_on_attach,
@@ -59,6 +60,10 @@ require('telescope').setup {
     },
     sorting_strategy = "ascending",
   }
+}
+
+require('nvim-tree').setup {
+  auto_close = true,
 }
 
 require('nvim-treesitter.configs').setup {
@@ -90,12 +95,14 @@ end
 require('lualine').setup {
   options = {
     theme = 'ayu_mirage',
-    theme_async = false,
     icons_enabled = false,
     section_separators = '',
     component_separators = '',
   },
   sections = {
     lualine_a = {lline_mode},
+  },
+  extensions = {
+    'fzf', 'nvim-tree', 'quickfix'
   },
 }

@@ -1,8 +1,13 @@
+if exists('g:vscode')
+  source ~/.config/nvim/vscode.vim
+  finish
+endif
+
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'yufengwng/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
-Plug 'npxbr/glow.nvim', {'branch': 'main'}
+Plug 'ellisonleao/glow.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -14,11 +19,12 @@ Plug 'tomtom/tcomment_vim'
 Plug 'ap/vim-css-color'
 Plug 'machakann/vim-sandwich'
 Plug 'cespare/vim-toml'
+Plug 'rhysd/vim-llvm'
 
 Plug 'kyazdani42/nvim-tree.lua'
 let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_auto_close = 1
 let g:nvim_tree_group_empty = 1
+let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_show_icons = {
 \ 'git': 0,
 \ 'folders': 0,
@@ -36,7 +42,7 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 let g:SuperTabDefaultCompletionType = 'context'
 
 Plug 'nvim-lua/completion-nvim'
-set completeopt=menuone
+set completeopt=menu,menuone
 let g:completion_enable_auto_popup = 0
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
