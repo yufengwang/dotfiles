@@ -5,20 +5,16 @@ endif
 
 call plug#begin(stdpath('data') . '/plugged')
 
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
-Plug 'ellisonleao/glow.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'junegunn/fzf.vim'
+Plug 'ellisonleao/glow.nvim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rust-lang/rust.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'ap/vim-css-color'
 Plug 'machakann/vim-sandwich'
-Plug 'cespare/vim-toml'
 Plug 'rhysd/vim-llvm'
 
 Plug 'kyazdani42/nvim-tree.lua'
@@ -106,6 +102,7 @@ nnoremap <c-n> :bnext<cr>
 nnoremap <c-p> :bprevious<cr>
 nnoremap <c-x> :bprevious<bar>bdelete #<cr>
 nnoremap <c-c> :cclose<cr>:lclose<cr>
+nnoremap <c-f> :Files<cr>
 nnoremap <leader>a ggvG$
 nnoremap <leader>q :quit<cr>
 nnoremap <leader>w :write<cr>
@@ -113,12 +110,12 @@ nnoremap <leader>c :nohlsearch<c-r>=has('diff')?'<bar>diffupdate':''<cr><cr>
 nnoremap <leader>e :edit <c-r>=expand('%:p:h')<cr>/
 nnoremap <leader>s :split<space>
 nnoremap <leader>v :vsplit<space>
-nnoremap <leader>ff :Telescope find_files<cr>
+nnoremap <leader>ff :GFiles<cr>
 nnoremap <leader>fs :Tags<cr>
-nnoremap <leader>fb :Telescope buffers<cr>
-nnoremap <leader>fr :Telescope live_grep<cr>
-nnoremap <leader>ft :Telescope file_browser<cr>
+nnoremap <leader>fb :Buffers<cr>
+nnoremap <leader>fr :Rg<cr>
 nnoremap <leader>fm :Maps<cr>
+nnoremap <leader>fh :Helptags<cr>
 nnoremap <F5> :edit<cr>
 nnoremap <F6> :set spell!<cr>
 nnoremap <F7> :Glow<cr>
