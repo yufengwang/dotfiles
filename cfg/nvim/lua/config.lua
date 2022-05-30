@@ -1,9 +1,17 @@
 local function set_buf_map(...)
-  vim.api.nvim_buf_set_keymap(bufnr, ...)
+  local buf_num = 0
+  if bufnr ~= nil then
+    buf_num = bufnr
+  end
+  vim.api.nvim_buf_set_keymap(buf_num, ...)
 end
 
 local function set_buf_opt(...)
-  vim.api.nvim_buf_set_option(bufnr, ...)
+  local buf_num = 0
+  if bufnr ~= nil then
+    buf_num = bufnr
+  end
+  vim.api.nvim_buf_set_option(buf_num, ...)
 end
 
 local function lsp_on_attach()
@@ -47,11 +55,25 @@ lsp.sumneko_lua.setup {
 }
 
 require('nvim-tree').setup {
-  auto_close = true,
+  renderer = {
+    add_trailing = true,
+    group_empty = true,
+    indent_markers = {
+      enable = true,
+    },
+    icons = {
+      show = {
+        file = false,
+        folder = false,
+        folder_arrow = false,
+        git = false,
+      }
+    }
+  }
 }
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = "maintained",
+  ensure_installed = { "c", "cpp", "lua", "python", "rust" },
   highlight = {
     enable = true,
   },

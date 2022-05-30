@@ -48,8 +48,8 @@ bindkey -M vicmd '^V' edit-command-line                     # ctrl-v
 alias ls='ls --color=auto --classify --group-directories-first'
 alias ll='ls --human-readable -l'
 alias la='ll --all'
-alias vim="nvim"
-alias vimdiff="nvim -d"
+alias vim='nvim'
+alias vimdiff='nvim -d'
 alias edit="$EDITOR"
 alias grep='grep --color=auto'
 alias pbcopy='wl-copy'

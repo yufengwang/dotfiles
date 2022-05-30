@@ -41,7 +41,7 @@ let g:asyncomplete_auto_popup = 0
 let g:SuperTabClosePreviewOnPopupClose = 1
 let g:SuperTabDefaultCompletionType = 'context'
 let g:lsp_document_code_action_signs_enabled = 0
-autocmd Filetype *
+autocmd FileType *
   \ if &omnifunc ==# '' |
   \ setlocal omnifunc=syntaxcomplete#Complete |
   \ endif
@@ -121,15 +121,9 @@ set smartcase           " case sensitive when uppercase present
 
 " tab settings
 set autoindent expandtab
-set tabstop=4 softtabstop=4 shiftwidth=4
-augroup filetype_tabs
-  autocmd!
-  autocmd filetype conf             setlocal ts=2 sts=2 sw=2
-  autocmd filetype html,css,scss    setlocal ts=2 sts=2 sw=2
-  autocmd filetype javascript,json  setlocal ts=2 sts=2 sw=2
-  autocmd filetype ruby,liquid      setlocal ts=2 sts=2 sw=2
-  autocmd filetype toml,xml,yaml    setlocal ts=2 sts=2 sw=2
-  autocmd filetype sh,tmux,vim,zsh  setlocal ts=2 sts=2 sw=2
+set tabstop=2 softtabstop=2 shiftwidth=2
+augroup init_tabs | autocmd!
+  autocmd FileType c,rust,python setlocal ts=4
 augroup END
 
 "

@@ -8,6 +8,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'junegunn/fzf.vim'
 Plug 'ellisonleao/glow.nvim'
 Plug 'editorconfig/editorconfig-vim'
@@ -16,17 +17,6 @@ Plug 'tomtom/tcomment_vim'
 Plug 'ap/vim-css-color'
 Plug 'machakann/vim-sandwich'
 Plug 'rhysd/vim-llvm'
-
-Plug 'kyazdani42/nvim-tree.lua'
-let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_group_empty = 1
-let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_show_icons = {
-\ 'git': 0,
-\ 'folders': 0,
-\ 'files': 0,
-\ 'folder_arrows': 0,
-\ }
 
 Plug 'ap/vim-buftabline'
 let g:buftabline_indicators = 1
@@ -70,12 +60,9 @@ set undofile                " save undo history
 
 set shiftwidth=0            " use tabstop
 set softtabstop=-1          " use shiftwidth
-set tabstop=4
+set tabstop=2
 augroup init_tabs | autocmd!
-  autocmd filetype javascript,lua,ruby setlocal ts=2
-  autocmd filetype css,html,liquid,markdown,scss setlocal ts=2
-  autocmd filetype conf,json,toml,xml,yaml setlocal ts=2
-  autocmd filetype sh,zsh,vim,tmux setlocal ts=2
+  autocmd FileType c,rust,python setlocal ts=4
 augroup END
 
 hi LineNr            cterm=bold ctermfg=244 ctermbg=235
@@ -155,5 +142,5 @@ command! -nargs=0 FoldToggle call s:FoldToggle()
 lua require('config')
 
 augroup init | autocmd!
-  autocmd filetype qf wincmd J
+  autocmd FileType qf wincmd J
 augroup END
