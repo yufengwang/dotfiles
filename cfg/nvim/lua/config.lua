@@ -40,6 +40,7 @@ end
 
 local lsp = require('lspconfig')
 lsp.rust_analyzer.setup { on_attach = lsp_on_attach }
+lsp.bashls.setup { on_attach = lsp_on_attach }
 lsp.clangd.setup { on_attach = lsp_on_attach }
 lsp.pylsp.setup { on_attach = lsp_on_attach }
 lsp.sumneko_lua.setup {
