@@ -42,6 +42,8 @@ command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir 
 
 call plug#end()
 
+packadd! termdebug
+
 set expandtab               " use spaces instead of tabs
 set hidden                  " hide buffers instead of closing
 set ignorecase              " case insensitive search
