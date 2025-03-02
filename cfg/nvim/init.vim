@@ -1,52 +1,96 @@
+"-----------------------------------------------------------------------------
+" entrypoint
+"-----------------------------------------------------------------------------
+
 if exists('g:vscode')
   source ~/.config/nvim/vscode.vim
   finish
 endif
 
+" disable netrw
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
+"-----------------------------------------------------------------------------
+" plugins
+"-----------------------------------------------------------------------------
+
 call plug#begin(stdpath('data') . '/plugged')
 
+Plug 'Mofiqul/vscode.nvim'
+Plug 'folke/tokyonight.nvim'
+Plug 'rebelot/kanagawa.nvim'
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/sonokai'
+
+Plug 'ap/vim-css-color'
+Plug 'ellisonleao/glow.nvim'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'junegunn/fzf.vim'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'machakann/vim-sandwich'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'junegunn/fzf.vim'
-Plug 'ellisonleao/glow.nvim'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'rhysd/vim-llvm'
 Plug 'rust-lang/rust.vim'
 Plug 'tomtom/tcomment_vim'
-Plug 'ap/vim-css-color'
-Plug 'machakann/vim-sandwich'
-Plug 'rhysd/vim-llvm'
+Plug 'tpope/vim-sleuth'
 
 Plug 'ap/vim-buftabline'
 let g:buftabline_indicators = 1
 let g:buftabline_numbers = 2
 let g:buftabline_show = 1
 
-Plug 'ervandew/supertab'
-let g:SuperTabClosePreviewOnPopupClose = 1
-let g:SuperTabDefaultCompletionType = 'context'
-
-Plug 'nvim-lua/completion-nvim'
-set completeopt=menu,menuone
-let g:completion_enable_auto_popup = 0
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_cache_dir = '~/.cache/nvim/ctags'
+command! -nargs=0 GutentagsClearCache
+  \ call system('rm ' . g:gutentags_cache_dir . '/*')
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 set foldexpr=nvim_treesitter#foldexpr()
 set foldmethod=expr
 set foldlevel=9
 
-Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_cache_dir = '~/.cache/nvim/ctags'
-command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')
+Plug 'preservim/tagbar', {'on': 'TagbarToggle'}
+let g:tagbar_width = 28
 
 call plug#end()
 
+"-----------------------------------------------------------------------------
+" builtins
+"-----------------------------------------------------------------------------
+
 packadd! termdebug
 
+"-----------------------------------------------------------------------------
+" theme
+"-----------------------------------------------------------------------------
+
+colorscheme everforest
+
+" hi BufTabLineFill    gui=none guifg=NvimDarkGray1 guibg=NvimDarkGray1
+" hi BufTabLineCurrent gui=bold guifg=NvimDarkGray1 guibg=NvimLightGreen
+" hi BufTabLineActive  gui=none guifg=NvimLightGreen guibg=NvimDarkGray3
+" hi BufTabLineHidden  gui=none guifg=NvimLighGray1 guibg=NvimDarkGray3
+" hi link TabLine      BufTabLineActive
+" hi link TabLineFill  BufTabLineFill
+" hi link TabLineSel   BufTabLineCurrent
+
+"-----------------------------------------------------------------------------
+" settings
+"-----------------------------------------------------------------------------
+
+set breakindent             " visually indent wrapped lines
+set cursorline              " highlight current line
 set expandtab               " use spaces instead of tabs
 set hidden                  " hide buffers instead of closing
 set ignorecase              " case insensitive search
+set list                    " show tabs and trailing/non-breakable spaces
 set mouse=a                 " enable mouse for all modes
 set noshowmode              " hide current mode line
 set number                  " show line numbering
@@ -60,24 +104,16 @@ set title                   " set terminal title
 set undodir=/tmp/nvim/undo  " semi-persistent undo
 set undofile                " save undo history
 
+" set special display characters
+lua vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
 set shiftwidth=0            " use tabstop
 set softtabstop=-1          " use shiftwidth
 set tabstop=2
-augroup init_tabs | autocmd!
-  autocmd FileType c,rust,python setlocal ts=4
-augroup END
 
-hi LineNr            cterm=bold ctermfg=244 ctermbg=235
-hi VertSplit         cterm=bold ctermfg=246 ctermbg=246
-hi TabLineSel        cterm=none
-hi BufTabLineFill    cterm=none ctermfg=246 ctermbg=246
-hi BufTabLineCurrent cterm=bold ctermfg=236 ctermbg=14
-hi BufTabLineActive  cterm=none ctermfg=250 ctermbg=236
-hi BufTabLineHidden  cterm=none ctermfg=250 ctermbg=240
-hi Pmenu                        ctermfg=250 ctermbg=238
-hi PmenuSel                     ctermfg=255 ctermbg=25
-hi PmenuSbar                    ctermbg=234
-hi PmenuThumb                   ctermfg=250
+"-----------------------------------------------------------------------------
+" keybindings
+"-----------------------------------------------------------------------------
 
 let mapleader = '\'
 
@@ -105,6 +141,7 @@ nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fr :Rg<cr>
 nnoremap <leader>fm :Maps<cr>
 nnoremap <leader>fh :Helptags<cr>
+nnoremap <leader>Q :qa!<cr>
 nnoremap <F5> :edit<cr>
 nnoremap <F6> :set spell!<cr>
 nnoremap <F7> :Glow<cr>
@@ -132,6 +169,10 @@ inoremap <c-w> <c-g>u<c-w>
 
 vnoremap // y/<c-r>"<cr>
 
+"-----------------------------------------------------------------------------
+" commands & functions
+"-----------------------------------------------------------------------------
+
 function! s:FoldToggle()
   if &foldcolumn ==# '0'
     set foldcolumn=auto:3
@@ -141,8 +182,17 @@ function! s:FoldToggle()
 endfunction
 command! -nargs=0 FoldToggle call s:FoldToggle()
 
-lua require('config')
+augroup highlight_yank | autocmd!
+  autocmd TextYankPost * silent!
+    \ lua vim.highlight.on_yank({higroup="IncSearch", timeout=300})
+augroup END
 
 augroup init | autocmd!
   autocmd FileType qf wincmd J
 augroup END
+
+"-----------------------------------------------------------------------------
+" configure
+"-----------------------------------------------------------------------------
+
+lua require('config')

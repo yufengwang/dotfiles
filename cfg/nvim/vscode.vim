@@ -3,6 +3,7 @@ set ignorecase              " case insensitive search
 set smartcase               " case sensitive if contains uppercase
 set splitbelow              " horizontal split to the bottom
 set splitright              " vertical split to the right
+set textwidth=78            " text wrapping column limit
 
 let mapleader = '\'
 
